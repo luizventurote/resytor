@@ -1,0 +1,5 @@
+localhost=meuteste
+locdalhost=meuteste
+servidor=meuteste
+ip_servidor=localhost
+ip_server=192.168.27.01

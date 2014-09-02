@@ -1,25 +1,43 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * ConfigWin.java
- *
- * Created on 29/08/2014, 10:44:07
- */
 package view;
+
+import dao.Dao;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author 2012122760110
+ * @author LuizVenturote https://github.com/luizventurote
  */
 public class ConfigWin extends javax.swing.JDialog {
+    
+    private Dao dao;
 
     /** Creates new form ConfigWin */
     public ConfigWin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        this.dao = new Dao();
+
+        try {
+            String ip_server = dao.getData("ip_server");
+            
+            if(ip_server == null || "".equals(ip_server)) {
+                
+                
+                dao.saveData("ip_server", "192.168.27.01");
+                
+            } else {
+                System.out.println("teste:"+ip_server);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ConfigWin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigWin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /** This method is called from within the constructor to
@@ -32,7 +50,7 @@ public class ConfigWin extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        input_config_ip = new javax.swing.JTextField();
+        btn_ip_server = new javax.swing.JTextField();
         btn_salvar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -40,8 +58,8 @@ public class ConfigWin extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("IP do servidor"));
 
-        input_config_ip.setText("localhost");
-        input_config_ip.setToolTipText("");
+        btn_ip_server.setText("localhost");
+        btn_ip_server.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -49,14 +67,14 @@ public class ConfigWin extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(input_config_ip, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addComponent(btn_ip_server, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(input_config_ip, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(btn_ip_server, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -81,7 +99,7 @@ public class ConfigWin extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 238, Short.MAX_VALUE)
                         .addComponent(btn_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -99,9 +117,7 @@ public class ConfigWin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-        MessageWin win = new MessageWin(null, true);
-        win.setLocationRelativeTo(null);
-        win.setVisible(true);
+       
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
@@ -123,8 +139,8 @@ public class ConfigWin extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField btn_ip_server;
     private javax.swing.JToggleButton btn_salvar;
-    private javax.swing.JTextField input_config_ip;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
