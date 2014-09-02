@@ -134,6 +134,11 @@ public class Resytor {
         
         return cont;
     }
+    
+    
+    public static int CalcularTest(int num) {
+        return num +10;
+    }
 
 
 }
