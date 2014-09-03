@@ -73,10 +73,9 @@ public class Resytor {
         for(String str:stopWords){
             for(String sub:subString){
                 if(str.equalsIgnoreCase(sub)){
-                        System.out.println("COMPARACAO: " + str + " X " + sub);
-                        msg = msg.trim();//remove espaços do inicio e fim da String
                         msg = msg.replaceAll("  ", " ");//substitui os caracters da esquerda pelos da direita, de toda a String                      
-                        msg = msg.replaceAll(" " + sub + " " , " "); 
+                        msg = msg.replaceFirst(sub + " " , " "); 
+                        msg = msg.trim();//remove espaços do inicio e fim da String
                 }//if
             }//for
         }//for
