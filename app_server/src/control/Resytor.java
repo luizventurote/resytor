@@ -2,7 +2,9 @@ package control;
 
 import control.ResytorException.TFijException;
 import dao.Dao;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  *
@@ -15,6 +17,71 @@ public class Resytor {
     public Resytor() {
         this.dao = new Dao();
     }
+        /**
+     * Método responsável pela retirada dos Stop Words do conteúdo do documento
+     * 
+     * removeStopWords(mensagem); assinatuna da chamada do método
+     * @param mensagem conteudo do documento
+     * @return conteudo do documento sem os stopWords
+     */
+    public static String removeStopWords(String mensagem){
+        ArrayList<String> stopWords = new ArrayList();
+        ArrayList<String> subString = new ArrayList();
+        String msg = mensagem;
+        
+         Scanner scn1 = new Scanner(msg);  
+         while(scn1.hasNext()){
+             subString.add(scn1.next());
+         }//while
+        
+         //Adicionando os StopWords a um array, para facilitar a comparação com o conteúdo do documento
+        stopWords.add("A"); stopWords.add("AS"); stopWords.add("O"); stopWords.add("OS");
+	stopWords.add("UM"); stopWords.add("UNS"); stopWords.add("UMA"); stopWords.add("UMAS");
+	stopWords.add("DA"); stopWords.add("DAS"); stopWords.add("DO"); stopWords.add("DOS");
+	stopWords.add("DE"); stopWords.add("PARA"); stopWords.add("PRA"); stopWords.add("COMO");
+	stopWords.add("QUANDO"); stopWords.add("QUEM"); stopWords.add("QUE"); stopWords.add("E");
+	stopWords.add("ESTE");	 stopWords.add("ESTES"); stopWords.add("ESTA"); stopWords.add("ESTAS");
+	stopWords.add("ISTO"); stopWords.add("AQUELA"); stopWords.add("AQUELAS"); stopWords.add("AQUELE");
+	stopWords.add("AQUELES"); stopWords.add("AQUILO"); stopWords.add("NAQUELA"); stopWords.add("NAQUELAS");
+	stopWords.add("NAQUELE"); stopWords.add("NAQUELES"); stopWords.add("NAQUILO"); stopWords.add("EM");
+	stopWords.add("NA"); stopWords.add("NO"); stopWords.add("NAS"); stopWords.add("NOS");
+	stopWords.add("POR"); stopWords.add("QUE"); stopWords.add("QUANDO"); stopWords.add("COMO");
+	stopWords.add("COM"); stopWords.add("SE"); stopWords.add("ESSE"); stopWords.add("VOU");
+        
+        //retirada dos StopPunctuations do conteudo do documento
+        msg = msg.replace(".", " "); msg = msg.replace(",", " ");  
+        msg = msg.replace(";", " "); msg = msg.replace(":", " ");
+        msg = msg.replace("?", " "); msg = msg.replace("!", " "); 
+        msg = msg.replace("...", " "); msg = msg.replace("-", " "); 
+        msg = msg.replace("(", " "); msg = msg.replace(")", " "); 
+        msg = msg.replace("_", " "); msg = msg.replace("*", " ");
+        msg = msg.replace("[", " "); msg = msg.replace("]", " "); 
+        msg = msg.replace("/", " "); msg = msg.replace("'", " ");
+        msg = msg.replace("}", " "); msg = msg.replace("}", " "); 
+        msg = msg.replace("+", " "); msg = msg.replace("&", " ");
+        msg = msg.replace("º", " "); msg = msg.replace("ª", " "); 
+        msg = msg.replace("%", " "); msg = msg.replace("§", " ");
+        msg = msg.replace("$", " "); msg = msg.replace("#", " "); 
+        msg = msg.replace("@", " "); msg = msg.replace("'", " ");
+        
+        subString.removeAll(subString);//zerando o array, para a insercao da String sem os "stopPunctuations"        
+        Scanner scn2 = new Scanner(msg);  
+        while(scn2.hasNext()){
+             subString.add(scn2.next());
+         }//while
+               
+        for(String str:stopWords){
+            for(String sub:subString){
+                if(str.equalsIgnoreCase(sub)){
+                        msg = msg.replaceAll("  ", " ");//substitui os caracters da esquerda pelos da direita, de toda a String                      
+                        msg = msg.replaceFirst(sub + " " , " "); 
+                        msg = msg.trim();//remove espaços do inicio e fim da String
+                }//if
+            }//for
+        }//for
+        return msg;
+    }//removeStopWords
+
     
     /**
      * Método para calcular freqüência de termo TFij
