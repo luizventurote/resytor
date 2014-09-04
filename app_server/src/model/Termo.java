@@ -7,7 +7,7 @@ package model;
 public class Termo {
     
     private String termo;
-    private double[] frequencia;
+    private int[] frequencia;
     private double frequenciaTotal;
     private int qtdDoc;
     private double[] TF; 
@@ -26,11 +26,11 @@ public class Termo {
         this.termo = termo;
     }
 
-    public double[] getFrequencia() {
+    public int[] getFrequencia() {
         return frequencia;
     }
 
-    public void setFrequencia(double[] frequencia) {
+    public void setFrequencia(int[] frequencia) {
         this.frequencia = frequencia;
     }
 
