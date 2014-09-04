@@ -5,6 +5,8 @@ import dao.Dao;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import model.Documento;
+import model.Termo;
 
 /**
  *
@@ -12,7 +14,9 @@ import java.util.Scanner;
  */
 public class Resytor {
     
-    Dao dao;
+    private Dao dao;
+    private ArrayList<Termo> listaTermos;
+    private ArrayList<Documento> listaDocumentos;
 
     public Resytor() {
         this.dao = new Dao();
@@ -46,7 +50,8 @@ public class Resytor {
 	stopWords.add("NAQUELE"); stopWords.add("NAQUELES"); stopWords.add("NAQUILO"); stopWords.add("EM");
 	stopWords.add("NA"); stopWords.add("NO"); stopWords.add("NAS"); stopWords.add("NOS");
 	stopWords.add("POR"); stopWords.add("QUE"); stopWords.add("QUANDO"); stopWords.add("COMO");
-	stopWords.add("COM"); stopWords.add("SE"); stopWords.add("ESSE"); stopWords.add("VOU");
+	stopWords.add("COM"); stopWords.add("SE"); stopWords.add("ESSE"); stopWords.add("VOU"); stopWords.add("do");
+        stopWords.add("é");
         
         //retirada dos StopPunctuations do conteudo do documento
         msg = msg.replace(".", " "); msg = msg.replace(",", " ");  
@@ -79,6 +84,9 @@ public class Resytor {
                 }//if
             }//for
         }//for
+        
+        msg = msg.replace("  ", " ");
+                
         return msg;
     }//removeStopWords
 
@@ -202,9 +210,84 @@ public class Resytor {
         return cont;
     }
     
-    
     public static int CalcularTest(int num) {
         return num +10;
+    }
+    
+    public void pesquisarPorTermos(String termos) {
+        
+        // Remove as strop words dos termos
+        termos = Resytor.removeStopWords(termos);
+        termos = termos.toLowerCase();
+        
+        // Cria um array de string a partir de uma string;
+        String termosArray[] = termos.split(" ");
+               
+        // Inicia a lista de termos
+        this.listaTermos = new ArrayList();
+        
+        // Objeto para armazenar os valores antes de adiciona-los na lista
+        Termo termo;
+        
+        System.out.println(termosArray.length);
+        
+        // Adiciona os termos no objeto
+        for(int i=0; i < termosArray.length; i++){
+            termo = new Termo(termosArray[i]); 
+            listaTermos.add(termo);
+        }
+        
+        for(int i=0; i < listaTermos.size(); i++){
+            System.out.println(listaTermos.get(i).getTermo()); 
+        }
+        
+        // Preparando os documentos
+        this.listaDocumentos = new ArrayList();
+        Documento doc;
+        doc = new Documento("Inflacao e um aumento generalizado de precos e resulta em perda do poder de compra."); 
+        listaDocumentos.add(doc);
+        doc = new Documento("A inflacao cronica provoca sempre uma perda do poder de compra (ou poder aquisitivo) da populacao."); 
+        listaDocumentos.add(doc);
+        doc = new Documento("O Universo em expansao: a Teoria Inflacionaria da origem do Universo"); 
+        listaDocumentos.add(doc);
+        doc = new Documento("A Origem do Universo, conhecida como teoria do BIG BANG surgiu das observacoes de Hubble"); 
+        listaDocumentos.add(doc);
+        doc = new Documento("A origem da vida e a teoria da evolucao de Darwin."); 
+        listaDocumentos.add(doc);
+        doc = new Documento("Sistemas Tradicionais de Arquivos foram substituidos pelos Sistemas de Bancos de Dados!"); 
+        listaDocumentos.add(doc);
+        doc = new Documento("Sistemas Distribuidos sao uma alternativa aos Sistemas Centralizados."); 
+        listaDocumentos.add(doc);
+        doc = new Documento("Sistemas Operacionais, Bancos de Dados e Redes de Computadores."); 
+        listaDocumentos.add(doc);
+        doc = new Documento("Sistemas de Inteligencia Artificial Distribuida..."); 
+        listaDocumentos.add(doc);
+        doc = new Documento("Ultraman, Ultraseven e Speed Racer sao personagens da ficcao japonesa."); 
+        listaDocumentos.add(doc);
+        
+        // Calcular a frequencia
+        for(int i=0; i < listaTermos.size(); i++){
+            int[] frequencia = new int[listaDocumentos.size()];
+            for(int j=0; j < listaDocumentos.size(); j++){
+                String conteudo = listaDocumentos.get(j).getConteudo();
+                conteudo = Resytor.removeStopWords(conteudo);
+                conteudo = conteudo.toLowerCase();
+                frequencia[j] = Resytor.fij(conteudo, listaTermos.get(i).getTermo());
+ 
+            }
+            listaTermos.get(i).setFrequencia(frequencia);
+        }
+        
+        for(int i=0; i < listaTermos.size(); i++){
+            System.out.println("Termo: "+ listaTermos.get(i).getTermo());
+            int[] frequenciaTermo = listaTermos.get(i).getFrequencia();
+            for(int j=0; j < listaDocumentos.size(); j++){
+                
+                System.out.println("Doc_"+j+": "+frequenciaTermo[j]);
+ 
+            }
+        }
+        
     }
 
 
