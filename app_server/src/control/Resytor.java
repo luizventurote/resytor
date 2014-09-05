@@ -273,6 +273,9 @@ public class Resytor {
             // Termo
             Termo termo_i = listaTermos.get(i);
             
+            // Frequencia total do termo na lista de documentos
+            int freqTotal = 0;
+            
             // Inicializa o array para armazenar a frequencia do termo em cada documento
             int[] frequencia = new int[listaDocumentos.size()];
             
@@ -289,13 +292,17 @@ public class Resytor {
                 
                 // Realiza o cálculo da frequencia de cada Termo em um Documento
                 frequencia[j] = Resytor.fij(conteudo, termo_i.getTermo());
+                
+                // Soma a frequencia
+                freqTotal += frequencia[j];
             }
             
             termo_i.setFrequencia(frequencia);
+            termo_i.setFrequenciaTotal(freqTotal);
         }
         
         for(int i=0; i < listaTermos.size(); i++){
-            System.out.println("Termo: "+ listaTermos.get(i).getTermo());
+            System.out.println("Termo: "+listaTermos.get(i).getTermo()+"{"+listaTermos.get(i).getFrequenciaTotal()+"}");
             int[] frequenciaTermo = listaTermos.get(i).getFrequencia();
             for(int j=0; j < listaDocumentos.size(); j++){
                 
