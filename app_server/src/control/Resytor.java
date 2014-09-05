@@ -229,8 +229,6 @@ public class Resytor {
         // Objeto para armazenar os valores antes de adiciona-los na lista
         Termo termo;
         
-        System.out.println(termosArray.length);
-        
         // Adiciona os termos no objeto
         for(int i=0; i < termosArray.length; i++){
             termo = new Termo(termosArray[i]); 
@@ -263,6 +261,10 @@ public class Resytor {
         doc = new Documento("Sistemas de Inteligencia Artificial Distribuida..."); 
         listaDocumentos.add(doc);
         doc = new Documento("Ultraman, Ultraseven e Speed Racer sao personagens da ficcao japonesa."); 
+        listaDocumentos.add(doc);
+        
+        // O ultimo documento corresponde ao proprio argumento de pesquisa - para efeito de comparacao com os demais documentos
+        doc = new Documento(termos); 
         listaDocumentos.add(doc);
         
         // Calcular a frequencia
