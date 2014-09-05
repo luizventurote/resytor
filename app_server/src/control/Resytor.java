@@ -267,17 +267,31 @@ public class Resytor {
         doc = new Documento(termos); 
         listaDocumentos.add(doc);
         
-        // Calcular a frequencia
+        // Calcular a frequencia e frequencia total
         for(int i=0; i < listaTermos.size(); i++){
+            
+            // Termo
+            Termo termo_i = listaTermos.get(i);
+            
+            // Inicializa o array para armazenar a frequencia do termo em cada documento
             int[] frequencia = new int[listaDocumentos.size()];
+            
             for(int j=0; j < listaDocumentos.size(); j++){
+                
+                // Recupera o conteúdo do Documento
                 String conteudo = listaDocumentos.get(j).getConteudo();
+                
+                // Remove as stopwords
                 conteudo = Resytor.removeStopWords(conteudo);
+                
+                // Formata o conteúdo
                 conteudo = conteudo.toLowerCase();
-                frequencia[j] = Resytor.fij(conteudo, listaTermos.get(i).getTermo());
- 
+                
+                // Realiza o cálculo da frequencia de cada Termo em um Documento
+                frequencia[j] = Resytor.fij(conteudo, termo_i.getTermo());
             }
-            listaTermos.get(i).setFrequencia(frequencia);
+            
+            termo_i.setFrequencia(frequencia);
         }
         
         for(int i=0; i < listaTermos.size(); i++){
