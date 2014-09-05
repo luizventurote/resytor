@@ -279,6 +279,9 @@ public class Resytor {
             // Inicializa o array para armazenar a frequencia do termo em cada documento
             int[] frequencia = new int[listaDocumentos.size()];
             
+            // Variável que armazena a quantidade de documentos que contém o termo
+            int cont_doc = 0;
+            
             for(int j=0; j < listaDocumentos.size(); j++){
                 
                 // Recupera o conteúdo do Documento
@@ -295,14 +298,20 @@ public class Resytor {
                 
                 // Soma a frequencia
                 freqTotal += frequencia[j];
+                
+                // Realiza a contagem de documentos que contém o termo
+                if(frequencia[j] > 0) {
+                    cont_doc++;
+                }
             }
             
             termo_i.setFrequencia(frequencia);
             termo_i.setFrequenciaTotal(freqTotal);
+            termo_i.setQtdDoc(cont_doc);
         }
         
         for(int i=0; i < listaTermos.size(); i++){
-            System.out.println("Termo: "+listaTermos.get(i).getTermo()+"{"+listaTermos.get(i).getFrequenciaTotal()+"}");
+            System.out.println("Termo: "+listaTermos.get(i).getTermo()+"{"+listaTermos.get(i).getFrequenciaTotal()+"} {"+listaTermos.get(i).getQtdDoc()+"}");
             int[] frequenciaTermo = listaTermos.get(i).getFrequencia();
             for(int j=0; j < listaDocumentos.size(); j++){
                 
