@@ -177,6 +177,17 @@ public class Dao {
         }
          return arrayMessage;
     }
+    
+    /**
+     *
+     * Método para pegar todas as mensagens do banco
+     *i
+     * @return retorna um arrayList de string com todas as mensagens
+     */
+    public ArrayList getAllMessages(){
+        return null;
+        
+    }
 
     /**
      *
