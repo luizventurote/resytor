@@ -184,8 +184,26 @@ public class Dao {
      *i
      * @return retorna um arrayList de string com todas as mensagens
      */
-    public ArrayList getAllMessages(){
-        return null;
+    public ArrayList getAllMessages() throws SQLException{
+        Connection conexao = Dao.Conectar();
+        ResultSet rs;
+        ArrayList<String> arrayMessage = new ArrayList();
+        Statement stmt = conexao.createStatement();
+
+        String sql = "SELECT mensagem.conteudo FROM mensagem";
+        try {
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                try {
+                    arrayMessage.add(rs.getString("conteudo"));
+                } catch (SQLException erro) {
+                    System.out.println("Erro na leitura de dados (" + erro.getLocalizedMessage() + ")");
+                }
+            }
+        } catch (SQLException erro) {
+            System.out.println("Comando SQL inválido (" + erro.getLocalizedMessage() + ")");
+        }
+        return arrayMessage;
         
     }
 
