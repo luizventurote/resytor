@@ -2,6 +2,7 @@ package control;
 
 import control.ResytorException.TFijException;
 import dao.Dao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class Resytor {
     public Resytor() {
         this.dao = new Dao();
     }
-        /**
+     /**
      * Método responsável pela retirada dos Stop Words do conteúdo do documento
      * 
      * removeStopWords(mensagem); assinatuna da chamada do método
@@ -321,6 +322,23 @@ public class Resytor {
         }
         
     }
-
-
+    
+    /**
+     * Método responsável para pegar todas as msg do banco 
+     * e armazenar seu conteúdo em objetos do tipo Documento
+     * 
+     * getTodosDocumentos(); assinatuna da chamada do método
+     * @return arrayList com todos os documentos do banco
+     */
+    public static ArrayList getTodosDocumentos() throws SQLException{
+        Dao msgBanco = new Dao();
+        ArrayList<String> allMessages = new ArrayList();
+        ArrayList<Documento> documentos = new ArrayList();
+        allMessages = msgBanco.getAllMessages();
+        
+        for(String msg:allMessages){
+            documentos.add(new Documento(msg));
+        }
+        return documentos;
+    }
 }
