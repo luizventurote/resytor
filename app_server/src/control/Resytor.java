@@ -2,6 +2,7 @@ package control;
 
 import control.ResytorException.TFijException;
 import dao.Dao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -329,10 +330,15 @@ public class Resytor {
      * getTodosDocumentos(); assinatuna da chamada do método
      * @return arrayList com todos os documentos do banco
      */
-    public static ArrayList getTodosDocumentos(){
-        return null;
+    public static ArrayList getTodosDocumentos() throws SQLException{
+        Dao msgBanco = new Dao();
+        ArrayList<String> allMessages = new ArrayList();
+        ArrayList<Documento> documentos = new ArrayList();
+        allMessages = msgBanco.getAllMessages();
         
+        for(String msg:allMessages){
+            documentos.add(new Documento(msg));
+        }
+        return documentos;
     }
-
-
 }
