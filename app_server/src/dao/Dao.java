@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -242,20 +243,17 @@ public class Dao {
      * @throws java.sql.SQLException, java.sql.Exception
      */
     public void criarBD() throws SQLException, Exception {
-        Connection conexao = Dao.Conectar();
-
-        String sql = "CREATE DATABASE IF NOT EXISTS BD_resytor;\n"
-                + "USE BD_resytor;\n"
-                + "\n"
-                + "CREATE TABLE mensagem(\n"
-                + "	id INT NOT NULL AUTO_INCREMENT,\n"
-                + "	conteudo TEXT NOT NULL,\n"
-                + "	PRIMARY KEY(id)\n"
-                + ");";
-        PreparedStatement stmt;
-
-        stmt = conexao.prepareStatement(sql);
-        stmt.executeUpdate();
+        ArrayList<String> sql = new ArrayList();
+        Connection Conn = DriverManager.getConnection("jdbc:mysql://localhost/?user=root&password=");   
+        Statement s;
+        
+        sql.add("CREATE DATABASE IF NOT EXISTS BD_resytor;");
+        sql.add("USE BD_resytor;");
+        sql.add("CREATE TABLE BD_resytor.mensagem(id INT NOT NULL AUTO_INCREMENT,conteudo TEXT NOT NULL,PRIMARY KEY(id));");
+                
+        for(String str: sql){
+            s = Conn.createStatement();  
+            s.executeUpdate(str); 
+        }
     }
-    
 }
