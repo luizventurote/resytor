@@ -182,6 +182,7 @@ public class MainWin extends javax.swing.JFrame {
 
     private void btn_initServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_initServerActionPerformed
         // TODO add your handling code here:
+        core.verificaBD();
     }//GEN-LAST:event_btn_initServerActionPerformed
 
     /**

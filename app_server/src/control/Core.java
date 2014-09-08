@@ -40,5 +40,11 @@ public class Core {
         
         return null;
     }
+    
+    public void verificaBD(){
+        if(){
+            
+        }
+    }
    
 }

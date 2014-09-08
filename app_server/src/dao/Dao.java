@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe responsável pela persistência no banco, utilizando jdbc
@@ -91,7 +92,7 @@ public class Dao {
      * Método para a pesquisa das mensagem no banco por identificador
      *
      * @param id identificador da mensagem
-     * @return 
+     * @return
      * @throws java.sql.SQLException
      */
     public String search(int id) throws SQLException {
@@ -114,7 +115,7 @@ public class Dao {
             System.out.println("Comando SQL inválido (" + erro.getLocalizedMessage() + ")");
         }
         return resultado;
-        
+
     }
 
     /**
@@ -175,16 +176,16 @@ public class Dao {
         } catch (SQLException erro) {
             System.out.println("Comando SQL inválido (" + erro.getLocalizedMessage() + ")");
         }
-         return arrayMessage;
+        return arrayMessage;
     }
-    
+
     /**
      *
-     * Método para pegar todas as mensagens do banco
-     *i
+     * Método para pegar todas as mensagens do banco i
+     *
      * @return retorna um arrayList de string com todas as mensagens
      */
-    public ArrayList getAllMessages() throws SQLException{
+    public ArrayList getAllMessages() throws SQLException {
         Connection conexao = Dao.Conectar();
         ResultSet rs;
         ArrayList<String> arrayMessage = new ArrayList();
@@ -204,7 +205,7 @@ public class Dao {
             System.out.println("Comando SQL inválido (" + erro.getLocalizedMessage() + ")");
         }
         return arrayMessage;
-        
+
     }
 
     /**
@@ -233,4 +234,45 @@ public class Dao {
             return false;
         }
     }
+
+    /**
+     *
+     * Método para criar o banco
+     *
+     * @throws java.sql.SQLException, java.sql.Exception
+     */
+    public void criarBD() throws SQLException, Exception {
+        Connection conexao = Dao.Conectar();
+
+        String sql = "CREATE DATABASE IF NOT EXISTS BD_resytor;\n"
+                + "USE BD_resytor;\n"
+                + "\n"
+                + "CREATE TABLE mensagem(\n"
+                + "	id INT NOT NULL AUTO_INCREMENT,\n"
+                + "	conteudo TEXT NOT NULL,\n"
+                + "	PRIMARY KEY(id)\n"
+                + ");";
+        PreparedStatement stmt;
+
+        stmt = conexao.prepareStatement(sql);
+        stmt.executeUpdate();
+    }
+    
+    public List listarTodosBancos() throws Exception, SQLException{
+        
+        ResultSet rs;
+        List lista = new ArrayList();
+        PreparedStatement stmt = null;
+        // Consulta no banco
+        rs = stmt.executeQuery("show databases");
+        
+        // Transformar RS em List
+        
+        while ( rs.next() ) {
+           String nomeBD = rs.getString("DataBase");
+           lista.add(nomeBD);            
+        }
+        return lista;
+    }
+    
 }
