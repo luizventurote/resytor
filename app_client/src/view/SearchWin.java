@@ -76,6 +76,13 @@ public class SearchWin extends javax.swing.JDialog {
 
     private void btn_buscar_mensagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_mensagensActionPerformed
         TCPCliente tcpc = new TCPCliente("3-"+input_search.getText());
+        
+        System.out.println("-------"+tcpc.getData());
+        
+        MessageWin win = new MessageWin(null, true, tcpc.getData());
+        win.setLocationRelativeTo(null);
+        win.setVisible(true);
+        
     }//GEN-LAST:event_btn_buscar_mensagensActionPerformed
 
     /**

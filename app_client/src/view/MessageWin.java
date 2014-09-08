@@ -3,6 +3,9 @@ package view;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +21,15 @@ public class MessageWin extends javax.swing.JDialog {
         initComponents();
         this.setIcon();
     }
+    
+    public MessageWin(java.awt.Frame parent, boolean modal, String data) {
+        super(parent, modal);
+        initComponents();
+        this.setIcon();
+        
+        loadingAllFilesInTable(table, data);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,26 +41,26 @@ public class MessageWin extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mensagens - Resytor");
         setPreferredSize(new java.awt.Dimension(500, 250));
         setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Mensagem"
+                "Mensagem"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -59,7 +71,7 @@ public class MessageWin extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,6 +143,35 @@ public class MessageWin extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
+
+    private void loadingAllFilesInTable(JTable table, String data) {
+        
+        String[] mensagens = data.split("#-#");
+
+        int size_list = mensagens.length;
+
+        if (size_list > 0) {
+
+            // Config table
+            int linha = 0;
+            int col = 0;
+            
+            for (int i=1; i<size_list; i++) {
+
+                // New line
+                ((DefaultTableModel) table.getModel()).addRow(new Vector());
+                table.setValueAt(mensagens[i], linha, col);
+
+                // Reset number of columns
+                col = 0;
+
+                linha++;
+                
+            } 
+
+        }
+        
+    }
 }

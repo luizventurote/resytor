@@ -13,7 +13,9 @@ import java.net.UnknownHostException;
  * @author Ruan
  */
 public class TCPCliente {
-    String mensagem;
+    
+    private String mensagem;
+    private String data;
 
     public TCPCliente(String mensagem) {
         this.mensagem = mensagem;
@@ -25,8 +27,8 @@ public class TCPCliente {
             DataInputStream in = new DataInputStream(s.getInputStream());
             DataOutputStream out = new DataOutputStream(s.getOutputStream());
             out.writeUTF(mensagem); 
-            String data = in.readUTF();
-            System.out.println("Recebido: " + data);
+            this.data = in.readUTF();
+            System.out.println("Recebido: " + this.data);
         } catch (UnknownHostException e) {
             System.out.println("Socket: "
                     + e.getMessage());
@@ -43,6 +45,10 @@ public class TCPCliente {
                 }
             }
         }//finally
+    }
+
+    public String getData() {
+        return data;
     }
     
 }
