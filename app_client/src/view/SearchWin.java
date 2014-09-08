@@ -3,6 +3,7 @@ package view;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import tcp.TCPCliente;
 
 /**
  *
@@ -28,7 +29,7 @@ public class SearchWin extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        input_search = new javax.swing.JTextField();
         btn_buscar_mensagens = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,7 +55,7 @@ public class SearchWin extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
+                    .addComponent(input_search)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 238, Short.MAX_VALUE)
                         .addComponent(btn_buscar_mensagens, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -64,7 +65,7 @@ public class SearchWin extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(input_search, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_buscar_mensagens, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -74,9 +75,7 @@ public class SearchWin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscar_mensagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_mensagensActionPerformed
-        MessageWin win = new MessageWin(null, true);
-        win.setLocationRelativeTo(null);
-        win.setVisible(true);
+        TCPCliente tcpc = new TCPCliente("3-"+input_search.getText());
     }//GEN-LAST:event_btn_buscar_mensagensActionPerformed
 
     /**
@@ -129,6 +128,6 @@ public class SearchWin extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btn_buscar_mensagens;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField input_search;
     // End of variables declaration//GEN-END:variables
 }

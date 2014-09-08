@@ -51,6 +51,7 @@ public class Core {
             
         } else if (acao == 3) {
             System.out.println("Recuperar mensagens por palavra chave");
+            return Resytor.convertDocumentToString( resytor.pesquisarPorTermos(mensagem) );
             
         } else {
             System.out.println("Erro");

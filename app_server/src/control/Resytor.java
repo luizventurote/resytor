@@ -480,4 +480,22 @@ public class Resytor {
         }
         return documentos;
     }
+    
+    /**
+     * Converte uma lista de Documentos em uma String
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param ArrayList<Documento> Lista de Documentos
+     * @return String String com o conteúdo de cada documento
+     */
+    public static String convertDocumentToString(ArrayList<Documento> documentos) {
+        
+        String result = "";
+        
+        for (int i=0; i<documentos.size(); i++) {
+            result = result + "#-#" + documentos.get(i).getConteudo();
+        }
+        
+        return result;
+    }
 }
