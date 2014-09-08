@@ -268,22 +268,34 @@ public class Resytor {
         doc = new Documento(termos); 
         listaDocumentos.add(doc);
         
+        // Termo
+        Termo termo_i;
+        
+        // Quantidade de termos da pesquisa
+        int listaTermosSize = listaTermos.size();
+        
+        // Documento
+        Documento documento_j;
+                 
+        // Tamanho da lista de documentos
+        int listDocSize = listaDocumentos.size();
+        
         // Calcular a frequencia e frequencia total
-        for(int i=0; i < listaTermos.size(); i++){
+        for(int i=0; i < listaTermosSize; i++){
             
             // Termo
-            Termo termo_i = listaTermos.get(i);
+            termo_i = listaTermos.get(i);
             
             // Frequencia total do termo na lista de documentos
             int freqTotal = 0;
             
             // Inicializa o array para armazenar a frequencia do termo em cada documento
-            int[] frequencia = new int[listaDocumentos.size()];
+            int[] frequencia = new int[listDocSize];
             
             // Variável que armazena a quantidade de documentos que contém o termo
             int cont_doc = 0;
             
-            for(int j=0; j < listaDocumentos.size(); j++){
+            for(int j=0; j < listDocSize; j++){
                 
                 // Recupera o conteúdo do Documento
                 String conteudo = listaDocumentos.get(j).getConteudo();
@@ -312,25 +324,22 @@ public class Resytor {
         }
         
         // Cálculo do TF, IDF E TFIDF
-        for(int i=0; i < listaTermos.size(); i++) {
+        for(int i=0; i < listaTermosSize; i++) {
             
             // Termo
-            Termo termo_i = listaTermos.get(i);
+            termo_i = listaTermos.get(i);
             
             // Inicializa o array para armazenar a frequencia do termo em cada documento
             int[] frequencia = termo_i.getFrequencia();
             
-            // Tamanho da lista de documentos
-            int listDocSize = listaDocumentos.size();
-            
             // Array de TF
-            double[] termTF = new double[listaDocumentos.size()];
+            double[] termTF = new double[listDocSize];
             
             // Array de IDF
-            double[] termIDF = new double[listaDocumentos.size()];
+            double[] termIDF = new double[listDocSize];
             
             // Array TFIDF
-            double[] termTFIDF = new double[listaDocumentos.size()];
+            double[] termTFIDF = new double[listDocSize];
             
             for(int j=0; j < listDocSize; j++) {
                 
@@ -348,6 +357,11 @@ public class Resytor {
                     
                 }
                 
+                // Documento
+                documento_j = listaDocumentos.get(j);
+                documento_j.setRepresentacao(termTFIDF);
+                System.out.println(documento_j.getRepresentacao());
+                
             }
             
             // Seta novos valores
@@ -357,10 +371,11 @@ public class Resytor {
             
         }
         
-        for(int i=0; i < listaTermos.size(); i++){
+        // Exibe os dados
+        for(int i=0; i < listaTermosSize; i++){
             
             // Termo
-            Termo termo_i = listaTermos.get(i);
+            termo_i = listaTermos.get(i);
             
             System.out.println("\nTermo: "+termo_i.getTermo()+"{"+termo_i.getFrequenciaTotal()+"} {"+termo_i.getQtdDoc()+"}");
             
@@ -376,7 +391,7 @@ public class Resytor {
             // Frequência
             int[] frequenciaTermo = termo_i.getFrequencia();
             
-            for(int j=0; j < listaDocumentos.size(); j++){
+            for(int j=0; j < listDocSize; j++){
                 
                 System.out.println("Doc_"+j+": "+frequenciaTermo[j]+" {TF:"+termTF[j]+"} "+"{IDF:"+termIDF[j]+"} "+"{TFIDF:"+termTFIDF[j]+"}");
  
