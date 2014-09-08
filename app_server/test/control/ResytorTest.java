@@ -51,6 +51,40 @@ public class ResytorTest {
     }
             
     /**
+     * Testa o método realiza o cálculo de log
+     */
+    @Test
+    public void test_log() {
+        
+        // Variável para contar erros
+        int error = 0;
+ 
+        // Método a ser testado
+        double result = Resytor.log(10, 10);
+        if(result != 1) {
+            error++;
+        }
+        
+        result = Resytor.log(10, 2);
+        if(result != 3.3219280948873626) {
+            error++;
+        }
+        
+        result = Resytor.log(10, 5);
+        if(result != 1.4306765580733933) {
+            error++;
+        }
+        
+        
+        // Exibe os dados do teste
+        System.out.println("Método: test_log");
+        System.out.println("Erros: "+error);
+        System.out.println("---------------------------------------");
+
+        assertEquals(0, error);
+    }
+            
+    /**
      * Testa o método que calcula a frequência de uma palavra na string
      */
     @Test
