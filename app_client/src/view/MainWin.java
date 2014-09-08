@@ -57,6 +57,7 @@ public class MainWin extends javax.swing.JFrame {
 
         btn_ultimas_mensagens.setText("Últimas mensagens");
         btn_ultimas_mensagens.setBorderPainted(false);
+        btn_ultimas_mensagens.setEnabled(false);
         btn_ultimas_mensagens.setFocusPainted(false);
         btn_ultimas_mensagens.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +76,7 @@ public class MainWin extends javax.swing.JFrame {
 
         jLabel2.setText("DevIFES - M19");
 
-        jLabel3.setText("v0.0.1");
+        jLabel3.setText("v0.1.0");
 
         btn_config.setText("Configurar");
         btn_config.setBorderPainted(false);
@@ -100,17 +101,17 @@ public class MainWin extends javax.swing.JFrame {
                         .addComponent(btn_enviar_mensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btn_ultimas_mensagens, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                        .addComponent(btn_ultimas_mensagens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btn_pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                        .addComponent(btn_pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btn_config, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                        .addComponent(btn_config, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)))
                 .addContainerGap())
         );

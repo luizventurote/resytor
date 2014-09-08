@@ -92,7 +92,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="version">
       <Properties>
-        <Property name="text" type="java.lang.String" value="v0.0.1"/>
+        <Property name="text" type="java.lang.String" value="v0.1.0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">

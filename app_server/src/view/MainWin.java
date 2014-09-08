@@ -131,7 +131,7 @@ public class MainWin extends javax.swing.JFrame {
             }
         });
 
-        version.setText("v0.0.1");
+        version.setText("v0.1.0");
 
         jLabel4.setText("DevIFES - M19");
 

@@ -1,6 +1,7 @@
 
 package tcp;
 
+import dao.Dao;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -17,9 +18,13 @@ public class TCPCliente {
     private String mensagem;
     private String data;
 
-    public TCPCliente(String mensagem) {
+    public TCPCliente(String mensagem) throws IOException {
+        
+        // Dao
+        Dao dao = new Dao();
+        
         this.mensagem = mensagem;
-        String nomeHost = "localhost"; //localhost deve ser substituido quando sistema deixar de ser local
+        String nomeHost = dao.getData("ip_server"); //localhost deve ser substituido quando sistema deixar de ser local
         Socket s = null;
         try {
             int serverPort = 7896;
