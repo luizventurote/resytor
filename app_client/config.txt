@@ -1,5 +1,8 @@
-localhost=meuteste
-locdalhost=meuteste
-servidor=meuteste
-ip_servidor=localhost
-ip_server=192.168.27.01
+ip_server=gfjgfjfgjf
+ip_server=gfjgfjfgjf
+ip_server=hdfhdf
+ip_server=fhfd
+ip_server=luiz
+ip_server=teste
+ip_server=gsdfhgsdghs
+ip_server=dsfgsdgsgsdfhgsdghs

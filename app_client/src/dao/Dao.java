@@ -19,7 +19,7 @@ public class Dao {
         
         String data = dao.getData(chave);
         
-        if(data == null || "".equals(data)) {
+        if(data == null || "".equals(data) || !valor.equals(data)) {
             BufferedWriter writer = new BufferedWriter(new FileWriter("config.txt", true));
             writer.write(chave + "=" + valor);
             writer.newLine();

@@ -22,16 +22,17 @@ public class ConfigWin extends javax.swing.JDialog {
         this.dao = new Dao();
 
         try {
+            
             String ip_server = dao.getData("ip_server");
             
             if(ip_server == null || "".equals(ip_server)) {
                 
-                
-                dao.saveData("ip_server", "192.168.27.01");
-                
             } else {
-                System.out.println("teste:"+ip_server);
+                
+                btn_ip_server.setText(ip_server);
+                
             }
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ConfigWin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -117,7 +118,18 @@ public class ConfigWin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
-       
+        try {
+            
+            dao.saveData("ip_server", btn_ip_server.getText() );
+            
+            this.setVisible(false);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ConfigWin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigWin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
