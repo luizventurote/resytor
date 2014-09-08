@@ -431,6 +431,41 @@ public class Resytor {
             
         }
         
+        
+        // SIMILARIDADES
+        for(int j=0; j < listDocSize; j++) {
+            
+            // Documento
+            documento_j = listaDocumentos.get(j);
+            Documento ultimo_documento = listaDocumentos.get(listDocSize-1);
+            
+            // Representação do último Documento
+            double[] ultimo_documento_rep = ultimo_documento.getRepresentacao();
+            
+            System.out.println(ultimo_documento.getConteudo());
+           
+            //Percorrendo todos os documentos da coleção
+            double A=0, B=0, C=0, D=0, E=0;
+            
+            for(int i=0; i<listaTermosSize; i++){
+                
+                // Representações
+                double[] documento_j_rep = documento_j.getRepresentacao();
+                
+                // Percorrendo a representacao vetorial de cada documento
+                A = A + ( documento_j_rep[i] * ultimo_documento_rep[i] );
+                B = B + ( documento_j_rep[i] * documento_j_rep[i] );;
+                B = Math.sqrt(B);
+                C = C + ( ultimo_documento_rep[i] * ultimo_documento_rep[i] );
+                C = Math.sqrt(C);
+                E = B * C;
+               
+            }
+            
+            System.out.println(A/E+"\n");
+            
+        }
+        
     }
     
     /**
