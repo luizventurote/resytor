@@ -82,7 +82,7 @@ public class SendMessageWin extends javax.swing.JDialog {
 
     private void btn_enviar_mensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviar_mensagemActionPerformed
         // TODO add your handling code here:
-        TCPCliente tcpc = new TCPCliente(jTextArea1.getText());
+        TCPCliente tcpc = new TCPCliente("1-"+jTextArea1.getText());
     }//GEN-LAST:event_btn_enviar_mensagemActionPerformed
 
     /**

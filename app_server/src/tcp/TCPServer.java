@@ -1,42 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tcp;
 
-import java.net.*;
+import control.Core;
 import java.io.*;
+import java.net.*;
+import java.sql.SQLException;
 
 /**
  *
  * @author Ruan
  */
-public class TCPServer {
+public class TCPServer extends Thread {
+    
+    @Override
+    public void run() {
+        TCPServer.startServer();
+    }
 
     public static void startServer() {
         try {
+            
+            System.out.println("Server On!");
+            
             int serverPort = 7896;
             DataInputStream in;
             DataOutputStream out;
             ServerSocket listenSocket = new ServerSocket(serverPort);
+            
             while (true) {
+                
                 Socket clientSocket = listenSocket.accept();
                 in = new DataInputStream(clientSocket.getInputStream());
                 out = new DataOutputStream(clientSocket.getOutputStream());
                 
-                String data = in.readUTF(); // Recebe a mensagem
+                // Recebe a mensagem
+                String data = in.readUTF(); 
                 System.out.println("Mensagem recebida: " + data);
                 
-                //O método .toUpperCase() converte todas as letras da String para maiúcula. No caso do Projeto Resytor,
-                // devemos substituir "data.toUpperCase()" pelo método interpretador.
-                data = data.toUpperCase();
+                // Envia a mensagem para o Core
+                Core core = Core.getInstance();
+                String resposta = core.execute(data);
                 
-                out.writeUTF(data);// Envia a Resposta
-            }//while
-        }catch (IOException e){
+                // Envia a Resposta
+                out.writeUTF(resposta);
+            }
+            
+        } catch (IOException e){
+            System.out.println("Erro: " + e.getMessage( ));
+            
+        } catch (SQLException e){
             System.out.println("Erro: " + e.getMessage( ));
         }
-
     }
 }

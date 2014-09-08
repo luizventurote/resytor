@@ -17,7 +17,7 @@ public class TCPCliente {
 
     public TCPCliente(String mensagem) {
         this.mensagem = mensagem;
-        String nomeHost = "192.168.43.163"; //localhost deve ser substituido quando sistema deixar de ser local
+        String nomeHost = "localhost"; //localhost deve ser substituido quando sistema deixar de ser local
         Socket s = null;
         try {
             int serverPort = 7896;

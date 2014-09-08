@@ -36,7 +36,7 @@ public class Core {
      * @param String mensagem Mensagem enviada pelo usuário
      * @return Object
      */
-    public Object execute(String mensagem) throws SQLException {
+    public String execute(String mensagem) throws SQLException {
         
         // Remove a ação do cliente da string
         int acao = Integer.parseInt(mensagem.split("-")[0]);
@@ -44,6 +44,7 @@ public class Core {
         
         if (acao == 1) {
             this.insert(mensagem);
+            return "Mensagem enviada com sucesso!";
             
         } else if (acao == 2) {
             System.out.println("Recuperar as mensagens");

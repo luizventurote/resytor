@@ -6,3 +6,5 @@ ip_server=luiz
 ip_server=teste
 ip_server=gsdfhgsdghs
 ip_server=dsfgsdgsgsdfhgsdghs
+ip_server=teste
+ip_server=localhost

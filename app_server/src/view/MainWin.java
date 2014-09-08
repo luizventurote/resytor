@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import tcp.TCPServer;
 
 /**
  *
@@ -184,16 +185,21 @@ public class MainWin extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_initServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_initServerActionPerformed
-        try {
-            // TODO add your handling code here:
-            core.criarBD();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERRO no Banco de Dados: " + 
-                        e.getMessage() );     
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERRO não esperado. " + 
-                        e.getMessage() );
-        }
+
+        // Inicia o Servidor
+        TCPServer server_con = new TCPServer();
+        server_con.start();
+        
+//        try {
+//            // TODO add your handling code here:
+//            core.criarBD();
+//        } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(null, "ERRO no Banco de Dados: " + 
+//                        e.getMessage() );     
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "ERRO não esperado. " + 
+//                        e.getMessage() );
+//        }
     }//GEN-LAST:event_btn_initServerActionPerformed
 
     /**
