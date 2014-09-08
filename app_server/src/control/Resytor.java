@@ -357,11 +357,6 @@ public class Resytor {
                     
                 }
                 
-                // Documento
-                documento_j = listaDocumentos.get(j);
-                documento_j.setRepresentacao(termTFIDF);
-                System.out.println(documento_j.getRepresentacao());
-                
             }
             
             // Seta novos valores
@@ -398,6 +393,42 @@ public class Resytor {
             }
             
             System.out.println("");
+        }
+        
+        System.out.println("#################################");
+        
+        // Representacao VETORIAL dos Documentos
+        for(int j=0; j < listDocSize; j++){
+            
+            int p = 0;
+            
+            // Documento
+            documento_j = listaDocumentos.get(j);
+            
+            System.out.println("Doc_"+j);
+            
+            // Array de representação
+            double[] representacao = new double[listaTermosSize];
+            
+            for(int i=0; i < listaTermosSize; i++) {
+                
+                // Termo
+                termo_i = listaTermos.get(i);
+                
+                System.out.println(" - "+termo_i.getTermo());
+                
+                // Seta os valores da representação de cada termo em um documento
+                representacao[p] = termo_i.getTFIDF()[j];
+                
+                System.out.println("  - "+representacao[p]);
+                
+                p++;
+                
+            }
+            
+            // Seta os valores da representação
+            documento_j.setRepresentacao(representacao);
+            
         }
         
     }
