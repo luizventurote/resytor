@@ -258,6 +258,13 @@ public class Dao {
         stmt.executeUpdate();
     }
     
+    /**
+     *
+     * Método lista todos os bancos
+     *
+     * @return Lista com nome dos bancos de dados existentes
+     * @throws java.sql.SQLException, java.sql.Exception
+     */
     public List listarTodosBancos() throws Exception, SQLException{
         
         ResultSet rs;

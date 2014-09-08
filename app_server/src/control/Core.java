@@ -42,9 +42,7 @@ public class Core {
     }
     
     public void verificaBD(){
-        if(){
-            
-        }
+        
     }
    
 }
