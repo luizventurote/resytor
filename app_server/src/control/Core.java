@@ -44,5 +44,9 @@ public class Core {
         
         return null;
     }
-   
+    
+    public void criarBD() throws SQLException, Exception{
+        Dao dao = new Dao();
+        dao.criarBD();
+    }
 }

@@ -11,6 +11,9 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -181,8 +184,16 @@ public class MainWin extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btn_initServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_initServerActionPerformed
-        // TODO add your handling code here:
-        core.verificaBD();
+        try {
+            // TODO add your handling code here:
+            core.criarBD();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERRO no Banco de Dados: " + 
+                        e.getMessage() );     
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERRO não esperado. " + 
+                        e.getMessage() );
+        }
     }//GEN-LAST:event_btn_initServerActionPerformed
 
     /**
