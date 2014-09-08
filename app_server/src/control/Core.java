@@ -2,7 +2,6 @@ package control;
 
 import dao.Dao;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
@@ -10,11 +9,20 @@ import java.util.List;
  */
 public class Core {
     
+    private Dao dao;
+    private Resytor resytor;
     private static Core uniqueInstance = null;
-    public static final int ENVIAR_MENSAGEM = 1;
-    public static final int RECUPERAR_10_ULTIMAS = 2;
-    public static final int RECUPERAR_POR_PALAVRACHAVE = 3;
+
+    public Core() {
+        resytor = new Resytor();
+        dao = new Dao();
+    }
     
+    /**
+     * Retorna a instância da classe
+     * 
+     * @return Core
+     */
     public static synchronized Core getInstance() {
         if (uniqueInstance == null) {
             return new Core();
@@ -22,22 +30,27 @@ public class Core {
         return uniqueInstance;
     }
     
-    // chamando o metodo : Interpretador.getInstance().execute(<id da acao> , <mensagem>);
-    public Object execute(String mensagem) {
+    /**
+     * Método responsável pela interpretação da mensagem enviada pelo cliente
+     * 
+     * @param String mensagem Mensagem enviada pelo usuário
+     * @return Object
+     */
+    public Object execute(String mensagem) throws SQLException {
         
+        // Remove a ação do cliente da string
         int acao = Integer.parseInt(mensagem.split("-")[0]);
         mensagem = mensagem.split("-")[1];
         
-        if (acao == ENVIAR_MENSAGEM) {
-            System.out.println("Enviar mensagem!");
-            return acao;
-            // ENVIAR MENSAGEM
-        } else if (acao == RECUPERAR_10_ULTIMAS) {
+        if (acao == 1) {
+            this.insert(mensagem);
+            
+        } else if (acao == 2) {
             System.out.println("Recuperar as mensagens");
-            // RECUPERAR AS 10 ULTIMAS MENSAGENS
-        } else if (acao == RECUPERAR_POR_PALAVRACHAVE) {
+            
+        } else if (acao == 3) {
             System.out.println("Recuperar mensagens por palavra chave");
-            // RECUPERAR POR PALAVRA-CHAVE
+            
         } else {
             System.out.println("Erro");
         }
@@ -45,8 +58,24 @@ public class Core {
         return null;
     }
     
+    /**
+     * Cria o banco de dados
+     * 
+     * @return void
+     */
     public void criarBD() throws SQLException, Exception{
         Dao dao = new Dao();
         dao.criarBD();
+    }
+    
+    /**
+     * Método responsável pela inserção de dados no banco
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param String text texto a ser gravado no banco
+     * @return boolean
+     */
+    public boolean insert(String text) throws SQLException {
+        return this.dao.insert(text);
     }
 }
