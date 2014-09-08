@@ -1,5 +1,9 @@
 package control;
 
+import dao.Dao;
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  *
  * @author LuizVenturote https://github.com/luizventurote
@@ -39,10 +43,6 @@ public class Core {
         }
         
         return null;
-    }
-    
-    public void verificaBD(){
-        
     }
    
 }

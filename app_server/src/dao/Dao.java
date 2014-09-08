@@ -258,28 +258,4 @@ public class Dao {
         stmt.executeUpdate();
     }
     
-    /**
-     *
-     * Método lista todos os bancos
-     *
-     * @return Lista com nome dos bancos de dados existentes
-     * @throws java.sql.SQLException, java.sql.Exception
-     */
-    public List listarTodosBancos() throws Exception, SQLException{
-        
-        ResultSet rs;
-        List lista = new ArrayList();
-        PreparedStatement stmt = null;
-        // Consulta no banco
-        rs = stmt.executeQuery("show databases");
-        
-        // Transformar RS em List
-        
-        while ( rs.next() ) {
-           String nomeBD = rs.getString("DataBase");
-           lista.add(nomeBD);            
-        }
-        return lista;
-    }
-    
 }
