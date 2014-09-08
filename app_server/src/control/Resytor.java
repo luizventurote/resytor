@@ -215,7 +215,7 @@ public class Resytor {
         return (double) (Math.log(x) / Math.log(base));
     }
     
-    public void pesquisarPorTermos(String termos) {
+    public ArrayList<Documento> pesquisarPorTermos(String termos) throws SQLException {
         
         // Remove as strop words dos termos
         termos = Resytor.removeStopWords(termos);
@@ -230,6 +230,9 @@ public class Resytor {
         // Objeto para armazenar os valores antes de adiciona-los na lista
         Termo termo;
         
+        // Array que armazena o resultado da pesquisa
+        ArrayList<Documento> arrayResultado = new ArrayList();
+        
         // Adiciona os termos no objeto
         for(int i=0; i < termosArray.length; i++){
             termo = new Termo(termosArray[i]); 
@@ -241,30 +244,10 @@ public class Resytor {
         }
         
         // Preparando os documentos
-        this.listaDocumentos = new ArrayList();
-        Documento doc;
-        doc = new Documento("Inflacao e um aumento generalizado de precos e resulta em perda do poder de compra."); 
-        listaDocumentos.add(doc);
-        doc = new Documento("A inflacao cronica provoca sempre uma perda do poder de compra (ou poder aquisitivo) da populacao."); 
-        listaDocumentos.add(doc);
-        doc = new Documento("O Universo em expansao: a Teoria Inflacionaria da origem do Universo"); 
-        listaDocumentos.add(doc);
-        doc = new Documento("A Origem do Universo, conhecida como teoria do BIG BANG surgiu das observacoes de Hubble"); 
-        listaDocumentos.add(doc);
-        doc = new Documento("A origem da vida e a teoria da evolucao de Darwin."); 
-        listaDocumentos.add(doc);
-        doc = new Documento("Sistemas Tradicionais de Arquivos foram substituidos pelos Sistemas de Bancos de Dados!"); 
-        listaDocumentos.add(doc);
-        doc = new Documento("Sistemas Distribuidos sao uma alternativa aos Sistemas Centralizados."); 
-        listaDocumentos.add(doc);
-        doc = new Documento("Sistemas Operacionais, Bancos de Dados e Redes de Computadores."); 
-        listaDocumentos.add(doc);
-        doc = new Documento("Sistemas de Inteligencia Artificial Distribuida..."); 
-        listaDocumentos.add(doc);
-        doc = new Documento("Ultraman, Ultraseven e Speed Racer sao personagens da ficcao japonesa."); 
-        listaDocumentos.add(doc);
+        this.listaDocumentos = Resytor.getTodosDocumentos();
         
         // O ultimo documento corresponde ao proprio argumento de pesquisa - para efeito de comparacao com os demais documentos
+        Documento doc;
         doc = new Documento(termos); 
         listaDocumentos.add(doc);
         
@@ -431,7 +414,6 @@ public class Resytor {
             
         }
         
-        
         // SIMILARIDADES
         for(int j=0; j < listDocSize; j++) {
             
@@ -454,7 +436,7 @@ public class Resytor {
                 
                 // Percorrendo a representacao vetorial de cada documento
                 A = A + ( documento_j_rep[i] * ultimo_documento_rep[i] );
-                B = B + ( documento_j_rep[i] * documento_j_rep[i] );;
+                B = B + ( documento_j_rep[i] * documento_j_rep[i] );
                 B = Math.sqrt(B);
                 C = C + ( ultimo_documento_rep[i] * ultimo_documento_rep[i] );
                 C = Math.sqrt(C);
@@ -462,9 +444,21 @@ public class Resytor {
                
             }
             
-            System.out.println(A/E+"\n");
+            // Setando a similaridade do ducumento em relação a pesquisa
+            documento_j.setSimilaridade(A/E);
             
+            if(documento_j.getSimilaridade() > 0) {
+                
+                // Verifica se é o último documento para não adiciona-lo na lista
+                if(j < (listDocSize-1) ) {
+                    //System.out.println("Documento "+j+" com similaridade de: "+documento_j.getSimilaridade());
+                    arrayResultado.add(documento_j);
+                }
+            }
         }
+        
+        // Retornando resultados
+        return arrayResultado;
         
     }
     
@@ -475,7 +469,7 @@ public class Resytor {
      * getTodosDocumentos(); assinatuna da chamada do método
      * @return arrayList com todos os documentos do banco
      */
-    public static ArrayList getTodosDocumentos() throws SQLException{
+    public static ArrayList<Documento> getTodosDocumentos() throws SQLException{
         Dao msgBanco = new Dao();
         ArrayList<String> allMessages = new ArrayList();
         ArrayList<Documento> documentos = new ArrayList();

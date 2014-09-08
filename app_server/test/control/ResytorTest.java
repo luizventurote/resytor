@@ -1,5 +1,8 @@
 package control;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import model.Documento;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -132,13 +135,17 @@ public class ResytorTest {
      * Testa a pesquisa por termos
      */
     @Test
-    public void test_pesquisarPorTermos() {
+    public void test_pesquisarPorTermos() throws SQLException {
         
         System.out.println("Teste do método de pesquisa");
        
         Resytor resytor = new Resytor();
         
-        resytor.pesquisarPorTermos("sistemas distribuidos e bancos de dados");
+        ArrayList<Documento> resultArray = resytor.pesquisarPorTermos("Resytor");
+        
+        for (int i=0; i<resultArray.size(); i++) {
+            System.out.println(i+" - "+resultArray.get(i).getConteudo());
+        }
         
         System.out.println("---------------------------------------");
         
