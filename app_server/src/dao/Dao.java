@@ -123,16 +123,17 @@ public class Dao {
      *
      * Método para a pesquisa das ultimas dez mensagem no banco
      *
+     * @param quantMsg quantidade de mensagens a serem pesquisadas
      * @return retorna um arrayList de string
      * @throws java.sql.SQLException
      */
-    public ArrayList searchLastMessage() throws SQLException {
+    public ArrayList searchLastMessage(int quantMsg) throws SQLException {
         Connection conexao = Dao.Conectar();
         ResultSet rs;
         ArrayList<String> arrayMessage = new ArrayList();
         Statement stmt = conexao.createStatement();
 
-        String sql = "SELECT mensagem.conteudo FROM mensagem ORDER BY mensagem.id DESC LIMIT 10";
+        String sql = "SELECT mensagem.conteudo FROM mensagem ORDER BY mensagem.id DESC LIMIT" + quantMsg;
         try {
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
