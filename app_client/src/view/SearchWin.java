@@ -2,7 +2,10 @@ package view;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tcp.TCPCliente;
 
 /**
@@ -75,14 +78,19 @@ public class SearchWin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscar_mensagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_mensagensActionPerformed
-        TCPCliente tcpc = new TCPCliente("3-"+input_search.getText());
         
-        System.out.println("-------"+tcpc.getData());
+        TCPCliente tcpc;
         
-        MessageWin win = new MessageWin(null, true, tcpc.getData());
-        win.setLocationRelativeTo(null);
+        try {
+            tcpc = new TCPCliente("3-"+input_search.getText());
+            System.out.println("-------"+tcpc.getData());
+            MessageWin win = new MessageWin(null, true, tcpc.getData());
+            win.setLocationRelativeTo(null);
         win.setVisible(true);
-        
+        } catch (IOException ex) {
+            Logger.getLogger(SearchWin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btn_buscar_mensagensActionPerformed
 
     /**

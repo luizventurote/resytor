@@ -2,7 +2,10 @@ package view;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tcp.TCPCliente;
 
 /**
@@ -81,8 +84,13 @@ public class SendMessageWin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_enviar_mensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviar_mensagemActionPerformed
-        // TODO add your handling code here:
-        TCPCliente tcpc = new TCPCliente("1-"+jTextArea1.getText());
+        
+        try {
+            TCPCliente tcpc = new TCPCliente("1-"+jTextArea1.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(SearchWin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btn_enviar_mensagemActionPerformed
 
     /**
