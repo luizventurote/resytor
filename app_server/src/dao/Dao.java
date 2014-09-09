@@ -133,7 +133,7 @@ public class Dao {
         ArrayList<String> arrayMessage = new ArrayList();
         Statement stmt = conexao.createStatement();
 
-        String sql = "SELECT mensagem.conteudo FROM mensagem ORDER BY mensagem.id DESC LIMIT" + quantMsg;
+        String sql = "SELECT mensagem.conteudo FROM mensagem ORDER BY mensagem.id DESC LIMIT " + quantMsg;
         try {
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
