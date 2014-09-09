@@ -249,7 +249,7 @@ public class Dao {
         
         sql.add("CREATE DATABASE IF NOT EXISTS BD_resytor;");
         sql.add("USE BD_resytor;");
-        sql.add("CREATE TABLE BD_resytor.mensagem(id INT NOT NULL AUTO_INCREMENT,conteudo TEXT NOT NULL,PRIMARY KEY(id));");
+        sql.add("CREATE TABLE IF NOT EXISTS BD_resytor.mensagem(id INT NOT NULL AUTO_INCREMENT,conteudo TEXT NOT NULL,PRIMARY KEY(id));");
                 
         for(String str: sql){
             s = Conn.createStatement();  
