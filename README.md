@@ -2,46 +2,34 @@
 =========================================
 ![image](https://raw.githubusercontent.com/luizventurote/resytor/master/doc/logo/Logo.png)
 
-Trabalho de matéria de Sistemas Distribuídos do IFES Campus Colatina.
+Trabalho da matéria de Sistemas Distribuídos do IFES Campus Colatina.
 
-## Ações do cliente ##
-* Enviar mensagem
-* Exibir as dez últimas mensagens
-* Exibir as mensagens que casam com os parâmetros de pesquisa (argumentos: palavras-chave)
+# Introdução #
 
-## Ações do servidor ##
-* Receberas as mensagens
-* Interpretar as mensagens do cliente
-* Montar modelo vetorial
+## Justificativa ##
 
-## Tarefas
+## Objetivo ##
 
-| Interface gráfica                                  |
-|----------------------------------------------------|
-| Opção para enviar mensagens                        |
-| Opção para recuperar as 10 últimas mensagens       |
-| Opção de pesquisa de mensagens por palavras-chave  |
+## Metodologia ##
 
-| Conexão Cliente/Servidor                                 |
-|----------------------------------------------------------|
-| Classes que fazem a conexão entre cliente e servidor     |
+# Recuperação da informação #
 
-| Interpretador                                            |
-|----------------------------------------------------------|
-| Verificar a ação do cliente                              |
-| Executar ação desejada                                   |
+## Modelo Booleano ##
 
-| Armazenamento das mensagens                               |
-|-----------------------------------------------------------|
-| Métodos para realizar o CRUD das mensagens                |
-| O armazenamento pode ser feito por arquivo ou por um SGBD |
+## Modelo Vetorial ##
 
-| Tabela de ponderação de termos                           |
-|----------------------------------------------------------|
-| Eliminar as stopwords                                    |
-| Criar uma tabela para armazenar os termos das mensagens  |
-| Adicionar os termos e a sua quantidade na tabela         |
-| Calcular o tamanho de cada documento                     |
-| Calcular a frequência total do termo na coleção (Fi)     |
-| Calcular a frequência de documento do termo (ni)         |
-| Calcular a frequência de termo (TFij)                    |
+## Vantagens do modelo vetorial em relação ao booleano ##
+
+# O ambiente RESYTOR #
+
+## Objetivo ##
+
+## Modelagem ##
+
+### Diagrama de caso de uso ###
+
+### Diagrama de classes ###
+
+### Diagrama de sequência (limitado)###
+
+## Ferramentas utilizado (Ex.: Java, IDE, MySQL, etc)##
