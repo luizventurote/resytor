@@ -12,7 +12,7 @@ Trabalho da matéria de Sistemas Distribuídos do IFES Campus Colatina.
 
 ## Metodologia ##
 
-# Recuperação da informação #
+# Recuperação da informação (Eduardo, Ruan)#
 
 ## Modelo Booleano ##
 
@@ -20,7 +20,7 @@ Trabalho da matéria de Sistemas Distribuídos do IFES Campus Colatina.
 
 ## Vantagens do modelo vetorial em relação ao booleano ##
 
-# O ambiente RESYTOR #
+# O ambiente RESYTOR (Vinícios, Naiara)#
 
 ## Objetivo ##
 
@@ -32,4 +32,10 @@ Trabalho da matéria de Sistemas Distribuídos do IFES Campus Colatina.
 
 ### Diagrama de sequência (limitado)###
 
-## Ferramentas utilizado (Ex.: Java, IDE, MySQL, etc)##
+## Ferramentas utilizado (Ex.: Java, IDE, MySQL, etc) (Luiz, Marcelo)##
+
+# Trabalhos futuros #
+
+## Arquitetura multiagentes (Sugestões) (Matheus, Paulo)##
+
+### Frameworks: Jade, Jadex, JASON.
