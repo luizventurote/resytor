@@ -1,12 +1,1 @@
-ip_server=gfjgfjfgjf
-ip_server=gfjgfjfgjf
-ip_server=hdfhdf
-ip_server=fhfd
-ip_server=luiz
-ip_server=teste
-ip_server=gsdfhgsdghs
-ip_server=dsfgsdgsgsdfhgsdghs
-ip_server=teste
-ip_server=localhost
-ip_server=localhost222
 ip_server=localhost
