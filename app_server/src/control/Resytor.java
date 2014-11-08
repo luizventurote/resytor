@@ -4,6 +4,8 @@ import control.ResytorException.TFijException;
 import dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 import model.Documento;
@@ -52,7 +54,7 @@ public class Resytor {
 	stopWords.add("NA"); stopWords.add("NO"); stopWords.add("NAS"); stopWords.add("NOS");
 	stopWords.add("POR"); stopWords.add("QUE"); stopWords.add("QUANDO"); stopWords.add("COMO");
 	stopWords.add("COM"); stopWords.add("SE"); stopWords.add("ESSE"); stopWords.add("VOU"); stopWords.add("do");
-        stopWords.add("é");
+        stopWords.add("SUA");
         
         //retirada dos StopPunctuations do conteudo do documento
         msg = msg.replace(".", " "); msg = msg.replace(",", " ");  
@@ -69,6 +71,10 @@ public class Resytor {
         msg = msg.replace("%", " "); msg = msg.replace("§", " ");
         msg = msg.replace("$", " "); msg = msg.replace("#", " "); 
         msg = msg.replace("@", " "); msg = msg.replace("'", " ");
+        msg = msg.replace("é", "e"); msg = msg.replace("ê", "e");
+        msg = msg.replace("á", "a"); msg = msg.replace("ã", "a");
+        msg = msg.replace("ó", "o"); msg = msg.replace("ô", "o");
+        msg = msg.replace(" a ", " "); msg = msg.replace("Ç", "C");
         
         subString.removeAll(subString);//zerando o array, para a insercao da String sem os "stopPunctuations"        
         Scanner scn2 = new Scanner(msg);  
@@ -498,4 +504,236 @@ public class Resytor {
         
         return result;
     }
+    
+    
+    public ArrayList<Documento> getMensagensClassificadas() throws SQLException {
+        
+        // Inicia a lista de termos
+        this.listaTermos = new ArrayList();
+        
+        // Preparando os documentos
+        this.listaDocumentos = Resytor.getTodosDocumentos();
+                
+        // Tamanho da lista de documentos
+        int listDocSize = listaDocumentos.size();
+                 
+        System.out.println(listDocSize);
+        
+        // Conteúdo de todos os documento em uma só string
+        String conteudo_geral = "";
+        
+        // Remove as stop words das mensagens retornadas do banco
+        for(int i=0; i<listDocSize; i++){
+            
+            // Recupera o conteúdo do Documento
+            String conteudo = listaDocumentos.get(i).getConteudo();
+                
+            // Remove as stopwords
+            conteudo = Resytor.removeStopWords(conteudo);
+                
+            // Formata o conteúdo
+            conteudo = conteudo.toLowerCase();
+            
+            // Incrementa no conteúdo geral
+            conteudo_geral = conteudo_geral + " " + conteudo;
+          
+            listaDocumentos.get(i).setConteudo(conteudo);
+       
+            System.out.println(listaDocumentos.get(i).getConteudo());
+            
+        }
+        
+        // Monta a lista de termos
+        this.listaTermos = this.montarListaDeTermos(conteudo_geral);
+
+        // Calcular a frequencia e frequencia total dos termos
+        this.calcularFrequenciaDosTermos();
+        
+        // Faz a redução de dimensionalidade na lista de termos
+        this.reduzirListaDeTermos(2);
+        
+        showListaDeTermos();
+        
+        return null;
+        
+    }
+    
+    /**
+     * Exibe a lista de termos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @return void
+     */
+    public void showListaDeTermos() {
+        
+        System.out.println("\n... Lista de termos ...");
+        
+        for(int i=0; i<listaTermos.size(); i++) {
+            
+            // Termo
+            Termo termo_i = this.listaTermos.get(i);
+            
+            System.out.println(termo_i.getTermo()+" {"+Double.toString(termo_i.getFrequenciaTotal())+"}");
+        }
+        
+        System.out.println("Quantidade de termos: "+listaTermos.size()+"\n");
+        
+    }
+    
+    /**
+     * Faz a redução de dimensionalidade na lista de termos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param String freqMin Frequência mínima total
+     * @return void
+     */
+    private void reduzirListaDeTermos(int freqMin) {
+        
+        int listaTermosSize = this.listaTermos.size();
+        
+        ArrayList<Termo> listaTermosSwap = new ArrayList();
+        ArrayList<Termo> listaTermosReduzida = new ArrayList();
+        
+        for(int i=0; i<listaTermosSize; i++){
+            
+            // Termo
+            Termo termo_i = this.listaTermos.get(i);
+            
+            // Frequência total do termo
+            int FreqTotalTermo = (int) termo_i.getFrequenciaTotal();
+            
+            if(FreqTotalTermo >= freqMin) {
+                listaTermosSwap.add(termo_i);
+            }
+        }
+        
+        int listaTermosSwapSize = listaTermosSwap.size();
+        
+        // Remove termos iguais
+        for(int i=0; i<listaTermosSwapSize; i++){
+            
+            // Termo
+            Termo termo_i = listaTermosSwap.get(i);
+            
+            // Adiciona o primeiro termo
+            if(listaTermosReduzida.isEmpty()) {
+                listaTermosReduzida.add(termo_i);
+            }
+            
+            // Representa a frequência que um termo aparece na lista existente
+            int frequencia=0;
+            int j=0;
+            
+            Iterator<Termo> iterator = listaTermosReduzida.iterator();
+            while (iterator.hasNext()) {
+                
+                // Verifica se o termo já está adicionado na lista
+                if(listaTermosReduzida.get(j).getTermo().equals(termo_i.getTermo()) ) {
+                    frequencia++;
+                }
+                
+                j++;
+                iterator.next();
+                
+            }
+            
+            // Verifica se a frequência do termo é igual a zero para adicionar o termo na lista
+            if(frequencia == 0) {
+                listaTermosReduzida.add(termo_i);
+            }
+        }
+        
+        // Adiciona a nova lista reduzina na lista principal de termos
+        this.listaTermos = listaTermosReduzida;
+    }
+    
+    
+    /**
+     * Faz o cálculo da frequência do termos em telação a lista de documentos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @return void
+     */
+    private void calcularFrequenciaDosTermos() {
+        
+        int listaTermosSize = this.listaTermos.size();
+        int listDocSize     = this.listaDocumentos.size();
+        
+        for(int i=0; i<listaTermosSize; i++){
+            
+            // Termo
+            Termo termo_i = this.listaTermos.get(i);
+            
+            // Frequencia total do termo na lista de documentos
+            int freqTotal = 0;
+            
+            // Inicializa o array para armazenar a frequencia do termo em cada documento
+            int[] frequencia = new int[listDocSize];
+            
+            // Variável que armazena a quantidade de documentos que contém o termo
+            int cont_doc = 0;
+            
+            for(int j=0; j < listDocSize; j++){
+                
+                // Recupera o conteúdo do Documento
+                String conteudo = this.listaDocumentos.get(j).getConteudo();
+                
+                // Remove as stopwords
+                conteudo = Resytor.removeStopWords(conteudo);
+                
+                // Formata o conteúdo
+                conteudo = conteudo.toLowerCase();
+                
+                // Realiza o cálculo da frequencia de cada Termo em um Documento
+                frequencia[j] = Resytor.fij(conteudo, termo_i.getTermo());
+                
+                // Soma a frequencia
+                freqTotal += frequencia[j];
+                
+                // Realiza a contagem de documentos que contém o termo
+                if(frequencia[j] > 0) {
+                    cont_doc++;
+                }
+            }
+            
+            termo_i.setFrequencia(frequencia);
+            termo_i.setFrequenciaTotal(freqTotal);
+            termo_i.setQtdDoc(cont_doc);
+            
+        }
+    }
+
+    
+    /**
+     * Monta uma lista de termos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param String termos String com os termos
+     * @return ArrayList<Termo> Retorna uma lista de termos
+     */
+    private ArrayList<Termo> montarListaDeTermos(String termos) {
+        
+        // Cria um array de string a partir de uma string;
+        String termosArray[] = termos.split(" ");
+               
+        // Inicia a lista de termos
+        ArrayList<Termo> listaDeTermos = new ArrayList();
+        
+        // Objeto para armazenar os valores antes de adiciona-los na lista
+        Termo termo;
+        
+        // Array que armazena o resultado da pesquisa
+        ArrayList<Documento> arrayResultado = new ArrayList();
+        
+        // Adiciona os termos no objeto
+        for(int i=0; i<termosArray.length; i++){
+            if( !"".equals(termosArray[i])) {
+                termo = new Termo(termosArray[i]); 
+                listaDeTermos.add(termo);
+            }
+        }
+        
+        return listaDeTermos;
+    }
+    
 }

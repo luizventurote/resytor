@@ -150,7 +150,23 @@ public class ResytorTest {
         System.out.println("---------------------------------------");
         
     }
-            
-       
     
+    
+    
+    /**
+     * Testa a o método que retorna todas as mensagens classificadas
+     */
+    @Test
+    public void test_getMensagensClassificadas() throws SQLException {
+        
+        System.out.println("Teste do método: getMensagensClassificadas()");
+       
+        Resytor resytor = new Resytor();
+        
+        ArrayList<Documento> resultArray = resytor.getMensagensClassificadas();
+        
+        System.out.println("---------------------------------------");
+        
+    }         
+      
 }
