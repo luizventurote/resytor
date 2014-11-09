@@ -506,7 +506,14 @@ public class Resytor {
     }
     
     
-    public ArrayList<Documento> getMensagensClassificadas() throws SQLException {
+    /**
+     * Retorna todas as mensagens classificadas por assunto
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param int k Quantidade de clusters a serem gerados
+     * @return void
+     */
+    public ArrayList<Documento> getMensagensClassificadas(int k) throws SQLException {
         
         // Inicia a lista de termos
         this.listaTermos = new ArrayList();

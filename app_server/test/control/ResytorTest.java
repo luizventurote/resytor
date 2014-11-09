@@ -163,7 +163,7 @@ public class ResytorTest {
        
         Resytor resytor = new Resytor();
         
-        ArrayList<Documento> resultArray = resytor.getMensagensClassificadas();
+        ArrayList<Documento> resultArray = resytor.getMensagensClassificadas(3);
         
         System.out.println("---------------------------------------");
         
