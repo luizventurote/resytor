@@ -554,7 +554,65 @@ public class Resytor {
         
         showListaDeTermos();
         
+        // Faz o cálculo do TF, IDF e TFIDF e adiciona na lista de termos
+        this.calcularTFIDF();
+        
         return null;
+        
+    }
+    
+    /**
+     * Faz o cálculo do TF, IDF e TFIDF e adiciona na lista de termos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @return void
+     */
+    public void calcularTFIDF() {
+        
+        int listDocSize = this.listaDocumentos.size();
+        
+        // Cálculo do TF, IDF E TFIDF
+        for(int i=0; i<listaTermos.size(); i++) {
+            
+            // Termo
+            Termo termo_i = listaTermos.get(i);
+            
+            // Inicializa o array para armazenar a frequencia do termo em cada documento
+            int[] frequencia = termo_i.getFrequencia();
+            
+            // Array de TF
+            double[] termTF = new double[listDocSize];
+            
+            // Array de IDF
+            double[] termIDF = new double[listDocSize];
+            
+            // Array TFIDF
+            double[] termTFIDF = new double[listDocSize];
+            
+            for(int j=0; j < listDocSize; j++) {
+                
+                if(frequencia[j] > 0) {
+                    
+                    termTF[j]       =   Resytor.log(frequencia[j], 2) + 1;
+                    termIDF[j]      =   ( Resytor.log(listDocSize,2) / termo_i.getQtdDoc() );
+                    termTFIDF[j]    =   termTF[j] * termIDF[j];
+                    
+                } else {
+                    
+                    termTF[j]       =   0;
+                    termIDF[j]      =   0;
+                    termTFIDF[j]    =   0;
+                    
+                }
+                
+            }
+            
+            // Seta novos valores
+            termo_i.setTF(termTF);
+            termo_i.setIDF(termIDF);
+            termo_i.setTFIDF(termTFIDF);
+            
+        }
         
     }
     
