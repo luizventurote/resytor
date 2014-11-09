@@ -565,11 +565,66 @@ public class Resytor {
         // Faz o cálculo do TF, IDF e TFIDF e adiciona na lista de termos
         this.calcularTFIDF();
         
+        // Representação vetorial
+        this.representacaoVetorial();
+        
         // Seleção de clusters
         this.selecionaClusters(k);
+        
+        this.gerarListaDeClusters();
 
         return null;
         
+    }
+    
+    /**
+     * Gera a lista de clusters para cada documento
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @return void
+     */
+    private void gerarListaDeClusters() {
+        
+        int listDocSize = this.listaDocumentos.size();
+        int listaTermosSize = this.listaTermos.size();
+        
+        for(int i=0; i<listDocSize; i++) {
+            
+            for(int j=0; j<listaTermosSize; j++) {
+                
+                // Termo
+                Termo termo_i = listaTermos.get(j);
+                
+                System.out.println(termo_i.getTFIDF()[i]);
+            }
+        }
+        
+    }
+    
+    /**
+     * Adiciona a representação vetorial no documento
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @return void
+     */
+    private void representacaoVetorial() {
+    
+    }
+    
+    /**
+     * Cálcula a similaridade entre dois documentos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param Documento doc_1 Documento 1
+     * @param Documento doc_2 Documento 2
+     * @return similaridade Similaridade entre o conteúdo dos documentos
+     */
+    private double calcularSimilaridade(Documento doc_1, Documento doc_2) {
+    
+        double similaridade = 0;
+        
+        return similaridade;
+    
     }
     
     /**
