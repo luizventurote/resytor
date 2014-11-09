@@ -588,16 +588,6 @@ public class Resytor {
         int listDocSize = this.listaDocumentos.size();
         int listaTermosSize = this.listaTermos.size();
         
-        for(int i=0; i<listDocSize; i++) {
-            
-            for(int j=0; j<listaTermosSize; j++) {
-                
-                // Termo
-                Termo termo_i = listaTermos.get(j);
-                
-                //System.out.println(termo_i.getTFIDF()[i]);
-            }
-        }
         
     }
     
@@ -650,8 +640,34 @@ public class Resytor {
      * @return similaridade Similaridade entre o conteúdo dos documentos
      */
     private double calcularSimilaridade(Documento doc_1, Documento doc_2) {
-    
+        
         double similaridade = 0;
+        
+        int listDocSize = this.listaDocumentos.size();
+        int listaTermosSize = this.listaTermos.size();
+
+        // Representação do último Documento
+        double[] doc_2_rep = doc_2.getRepresentacao();
+
+        //Percorrendo todos os documentos da coleção
+        double A=0, B=0, C=0, D=0, E=0;
+
+        for(int i=0; i<listaTermosSize; i++){
+
+            // Representações
+            double[] doc_1_rep = doc_1.getRepresentacao();
+
+            // Percorrendo a representacao vetorial de cada documento
+            A = A + ( doc_1_rep[i] * doc_2_rep[i] );
+            B = B + ( doc_1_rep[i] * doc_1_rep[i] );
+            C = C + ( doc_2_rep[i] * doc_2_rep[i] );
+
+        }
+        
+        B = Math.sqrt(B);
+        C = Math.sqrt(C);
+        E = B * C;
+        similaridade = A/E;
         
         return similaridade;
     
