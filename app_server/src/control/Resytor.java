@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import static java.util.Collections.list;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 import model.Documento;
 import model.Termo;
@@ -563,9 +564,33 @@ public class Resytor {
         
         // Faz o cálculo do TF, IDF e TFIDF e adiciona na lista de termos
         this.calcularTFIDF();
+        
+        // Seleção de clusters
+        this.selecionaClusters(k);
 
         return null;
         
+    }
+    
+    /**
+     * Seleciona os documentos centróides de cada cluster
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @param int k Quantidade de clusters a serem gerados
+     * @return void
+     */
+    private void selecionaClusters(int k) {
+        
+        Random gerador = new Random();
+        
+        for(int i=0; i<k; i++) {
+            
+            int doc_id = gerador.nextInt(k+1);
+            
+            this.listaDocumentos.get(doc_id).setCluster(true);
+            
+        }
+                
     }
     
     /**
@@ -574,7 +599,7 @@ public class Resytor {
      * @author LuizVenturote https://github.com/luizventurote
      * @return void
      */
-    public void calcularTFIDF() {
+    private void calcularTFIDF() {
         
         int listDocSize = this.listaDocumentos.size();
         

@@ -9,6 +9,7 @@ public class Documento {
     private String conteudo;
     private double similaridade;
     private double[] representacao;
+    private boolean cluster = false;
 
     public Documento(String conteudo) {
         this.conteudo = conteudo;
@@ -37,5 +38,13 @@ public class Documento {
     public void setRepresentacao(double[] representacao) {
         this.representacao = representacao;
     }
-    
+
+    public boolean isCluster() {
+        return cluster;
+    }
+
+    public void setCluster(boolean cluster) {
+        this.cluster = cluster;
+    }
+        
 }
