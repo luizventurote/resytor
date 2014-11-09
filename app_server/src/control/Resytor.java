@@ -563,7 +563,7 @@ public class Resytor {
         
         // Faz o cálculo do TF, IDF e TFIDF e adiciona na lista de termos
         this.calcularTFIDF();
-        
+
         return null;
         
     }
@@ -601,7 +601,7 @@ public class Resytor {
                 if(frequencia[j] > 0) {
                     
                     termTF[j]       =   Resytor.log(frequencia[j], 2) + 1;
-                    termIDF[j]      =   ( Resytor.log(listDocSize,2) / termo_i.getQtdDoc() );
+                    termIDF[j]      =   ( Resytor.log(listDocSize/termo_i.getQtdDoc(),2));
                     termTFIDF[j]    =   termTF[j] * termIDF[j];
                     
                 } else {
