@@ -571,6 +571,10 @@ public class Resytor {
         // Seleção de clusters
         this.selecionaClusters(k);
         
+        // Gera a lista de similaridade entre os documentos
+        this.calcularSimilaridadeDocumentos();
+        
+        // Separa os dDocumentos em clusters
         this.gerarListaDeClusters();
 
         return null;
@@ -578,17 +582,68 @@ public class Resytor {
     }
     
     /**
-     * Gera a lista de clusters para cada documento
+     * Gera a lista de clusters
      * 
      * @author LuizVenturote https://github.com/luizventurote
      * @return void
      */
     private void gerarListaDeClusters() {
         
+    }
+    
+    /**
+     * Gera a lista de similaridade entre os documentos
+     * 
+     * @author LuizVenturote https://github.com/luizventurote
+     * @return void
+     */
+    private void calcularSimilaridadeDocumentos() {
+        
         int listDocSize = this.listaDocumentos.size();
-        int listaTermosSize = this.listaTermos.size();
+        double sim=0;
+        double[] sim_table = new double[listDocSize];
         
+        System.out.println(" ... Lista de Similaridade dos Documentos ... ");
         
+        for(int i=0; i<listDocSize; i++) {
+            
+            Documento documento_i = listaDocumentos.get(i);
+                
+            // Verifica se o ducmento i é centróide
+            if(documento_i.isCluster()) {
+                System.out.print(" C |");
+            } else {
+                System.out.print(" x |");
+            }
+            
+            for(int j=0; j<listDocSize; j++) {
+                
+                // Cálcula a similaridade entre os documentos
+                if(i!=j) {
+                    
+                    Documento documento_j = listaDocumentos.get(j);
+                    
+                    sim = calcularSimilaridade(documento_i, documento_j);
+                    
+                    sim_table[j] = sim;
+                    
+                    System.out.print(" { " + sim + " } ");
+                    
+                } else {
+                    
+                    sim_table[j] = -1;
+                    
+                    System.out.print(" {  -  } ");
+                    
+                }
+                
+                documento_i.setClusterList(sim_table);
+                
+            }
+            
+            System.out.println("");
+            
+        }
     }
     
     /**

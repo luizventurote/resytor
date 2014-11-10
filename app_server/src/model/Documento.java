@@ -10,7 +10,7 @@ public class Documento {
     private double similaridade;
     private double[] representacao;
     private boolean cluster = false;
-    private int[] clusterList;
+    private double[] clusterList;
 
     public Documento(String conteudo) {
         this.conteudo = conteudo;
@@ -48,11 +48,11 @@ public class Documento {
         this.cluster = cluster;
     }
 
-    public int[] getClusterList() {
+    public double[] getClusterList() {
         return clusterList;
     }
 
-    public void setClusterList(int[] clusterList) {
+    public void setClusterList(double[] clusterList) {
         this.clusterList = clusterList;
     }
             
