@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author LuizVenturote https://github.com/luizventurote
@@ -11,6 +13,8 @@ public class Documento {
     private double[] representacao;
     private boolean cluster = false;
     private double[] clusterList;
+    private ArrayList<Documento> listaDocumentos;
+    private String classe;
 
     public Documento(String conteudo) {
         this.conteudo = conteudo;

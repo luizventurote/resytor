@@ -588,6 +588,12 @@ public class Resytor {
      * @return void
      */
     private void gerarListaDeClusters() {
+    
+        int listDocSize = this.listaDocumentos.size();
+        
+        for(int i=0; i<listDocSize; i++) {
+            
+        }
         
     }
     
