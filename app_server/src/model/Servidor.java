@@ -11,10 +11,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
-/**
- *
- * @author Marcelo
- */
 public class Servidor extends Thread {
    
     private static Vector CLIENTES;    
