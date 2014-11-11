@@ -3,6 +3,7 @@ package view;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import model.Cliente;
 
 /**
  *
@@ -36,6 +37,7 @@ public class MainWin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btn_config = new javax.swing.JToggleButton();
+        btn_Chat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Resytor - Sistema de Recuperação Vetorial");
@@ -87,6 +89,13 @@ public class MainWin extends javax.swing.JFrame {
             }
         });
 
+        btn_Chat.setText("Chat");
+        btn_Chat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ChatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,7 +121,10 @@ public class MainWin extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_Chat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,11 +140,13 @@ public class MainWin extends javax.swing.JFrame {
                 .addComponent(btn_pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_config, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Chat, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -165,6 +179,12 @@ public class MainWin extends javax.swing.JFrame {
         win.setVisible(true);
         
     }//GEN-LAST:event_btn_configActionPerformed
+
+    private void btn_ChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ChatActionPerformed
+        // TODO add your handling code here:
+        String[] args = null;
+        Cliente.main(args);
+    }//GEN-LAST:event_btn_ChatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +225,7 @@ public class MainWin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Chat;
     private javax.swing.JToggleButton btn_config;
     private javax.swing.JToggleButton btn_enviar_mensagem;
     private javax.swing.JToggleButton btn_pesquisar;
