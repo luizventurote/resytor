@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import model.Servidor;
 import tcp.TCPServer;
 
 /**
@@ -108,6 +109,7 @@ public class MainWin extends javax.swing.JFrame {
         btn_initServer = new javax.swing.JToggleButton();
         version = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btn_IniciarChat = new javax.swing.JButton();
 
         setTitle("RESYTOR - Server Application");
         setResizable(false);
@@ -135,6 +137,13 @@ public class MainWin extends javax.swing.JFrame {
 
         jLabel4.setText("DevIFES - M19");
 
+        btn_IniciarChat.setText("Iniciar Chat");
+        btn_IniciarChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_IniciarChatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,7 +163,10 @@ public class MainWin extends javax.swing.JFrame {
                                 .addComponent(version)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_IniciarChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,11 +175,13 @@ public class MainWin extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(28, 28, 28)
                 .addComponent(btn_initServer, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_IniciarChat, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(version)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -203,6 +217,13 @@ public class MainWin extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_btn_initServerActionPerformed
+
+    private void btn_IniciarChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IniciarChatActionPerformed
+        // TODO add your handling code here:
+        String[] args = null;
+        Servidor.main(args);
+        
+    }//GEN-LAST:event_btn_IniciarChatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,6 +286,7 @@ public class MainWin extends javax.swing.JFrame {
         this.setIconImage(imagemTitulo);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_IniciarChat;
     private javax.swing.JToggleButton btn_initServer;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
