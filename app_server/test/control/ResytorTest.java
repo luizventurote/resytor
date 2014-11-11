@@ -2,6 +2,7 @@ package control;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Cluster;
 import model.Documento;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -163,7 +164,7 @@ public class ResytorTest {
        
         Resytor resytor = new Resytor();
         
-        ArrayList<Documento> resultArray = resytor.getMensagensClassificadas(3);
+        ArrayList<Cluster> resultArray = resytor.getMensagensClassificadas(3);
         
         System.out.println("---------------------------------------");
         

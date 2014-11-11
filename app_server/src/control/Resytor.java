@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
+import model.Cluster;
 import model.Documento;
 import model.Termo;
 
@@ -21,6 +22,7 @@ public class Resytor {
     private Dao dao;
     private ArrayList<Termo> listaTermos;
     private ArrayList<Documento> listaDocumentos;
+    private ArrayList<Cluster> listaCluster;
 
     public Resytor() {
         this.dao = new Dao();
@@ -514,7 +516,7 @@ public class Resytor {
      * @param int k Quantidade de clusters a serem gerados
      * @return void
      */
-    public ArrayList<Documento> getMensagensClassificadas(int k) throws SQLException {
+    public ArrayList<Cluster> getMensagensClassificadas(int k) throws SQLException {
         
         // Inicia a lista de termos
         this.listaTermos = new ArrayList();
@@ -577,7 +579,7 @@ public class Resytor {
         // Separa os dDocumentos em clusters
         this.gerarListaDeClusters();
 
-        return null;
+        return this.listaCluster;
         
     }
     
@@ -588,13 +590,120 @@ public class Resytor {
      * @return void
      */
     private void gerarListaDeClusters() {
-    
+        
+        System.out.println("\n ... Lista de CLuesters ... ");
+        
+        this.listaCluster = new ArrayList();
+ 
         int listDocSize = this.listaDocumentos.size();
+        
+        double lista_clusters_simil[] = new double[listDocSize];
+                
+        for(int i=0; i<listDocSize; i++) {
+            
+            Documento documento_i = listaDocumentos.get(i);
+            
+            // Similaridade da lista de clusters
+            lista_clusters_simil = documento_i.getClusterList();
+            
+            for(int j=0; j<listDocSize; j++) {
+                
+                Documento documento_j = listaDocumentos.get(j);
+                
+                if(lista_clusters_simil[j] > 0) {
+                    
+                    if(documento_j.isCluster()) {
+                    
+                        System.out.println("Cálculo!");
+                        
+                    } else {
+                        
+                        if(documento_i.isCluster()) {
+                           
+                            if(documento_j.getClassificacao() == -1) {
+                                documento_j.setClassificacao(i);
+                                documento_j.setSimilaridade(lista_clusters_simil[j]);
+                            } else {
+
+                                if(documento_j.getSimilaridade() < lista_clusters_simil[j]) {
+                                    documento_j.setClassificacao(i);
+                                    documento_j.setSimilaridade(lista_clusters_simil[j]);
+                                }
+                            }                            
+                        }                        
+                    }                    
+                }
+            }            
+        }
+        
+        // Quantidade de clusters
+        int qtd_clusters=0;
+        
+        // Cria os clusters
+        for(int i=0; i<listDocSize; i++) {
+            
+            Documento documento_i = listaDocumentos.get(i); 
+            
+            if(documento_i.isCluster()) {
+                Cluster cls = new Cluster();
+                cls.setClasse(documento_i.getClasse());
+                cls.getListaDocumentos().add(documento_i);
+                cls.setClassificacao(documento_i.getClassificacao());
+                this.listaCluster.add(cls);  
+                
+                qtd_clusters++;
+            }
+        }
+        
+        System.out.println("-----");
         
         for(int i=0; i<listDocSize; i++) {
             
+            Documento documento_i = listaDocumentos.get(i); 
+            
+            if(!documento_i.isCluster()) {
+                
+                for(int j=0; j<qtd_clusters; j++) {
+                    
+                    Cluster cls = this.listaCluster.get(j);
+                    
+                    if(documento_i.getClassificacao() == cls.getClassificacao()) {
+                        
+                        cls.getListaDocumentos().add(documento_i);
+                        
+                    }
+                }
+            }
         }
         
+        // Adiciona os documentos na lista de clusters
+        int i=0;
+        Iterator<Cluster> iterator = this.listaCluster.iterator();
+	while (iterator.hasNext()) {
+            
+            int j=0;
+            
+            Cluster cls = this.listaCluster.get(i);
+            
+            System.out.println(cls.getClasse());
+            
+            Iterator<Documento> iterator_cls = cls.getListaDocumentos().iterator();
+            while (iterator_cls.hasNext()) {
+                
+                Documento documento_j = cls.getListaDocumentos().get(j);
+                
+                System.out.println(documento_j.getConteudo());
+                
+                j++;
+		iterator_cls.next();
+            }
+            
+            System.out.println("");
+            
+            i++;
+            iterator.next();
+	}
+            
     }
     
     /**
@@ -607,13 +716,14 @@ public class Resytor {
         
         int listDocSize = this.listaDocumentos.size();
         double sim=0;
-        double[] sim_table = new double[listDocSize];
         
         System.out.println(" ... Lista de Similaridade dos Documentos ... ");
         
         for(int i=0; i<listDocSize; i++) {
             
             Documento documento_i = listaDocumentos.get(i);
+            
+            double[] sim_table = new double[listDocSize];
                 
             // Verifica se o ducmento i é centróide
             if(documento_i.isCluster()) {
@@ -643,9 +753,9 @@ public class Resytor {
                     
                 }
                 
-                documento_i.setClusterList(sim_table);
-                
             }
+            
+            documento_i.setClusterList(sim_table);
             
             System.out.println("");
             
@@ -674,10 +784,18 @@ public class Resytor {
             // Array de representação
             double[] representacao = new double[listaTermosSize];
             
+            double TFIDF_maior=0;
+            int termo_tfidf_maior=0;
+            
             for(int i=0; i<listaTermosSize; i++) {
                 
                 // Termo
                 Termo termo_i = listaTermos.get(i);
+                
+                if(TFIDF_maior < termo_i.getTFIDF()[j]) {
+                    TFIDF_maior = termo_i.getTFIDF()[j];
+                    termo_tfidf_maior = i;
+                }
                 
                 // Seta os valores da representação de cada termo em um documento
                 representacao[p] = termo_i.getTFIDF()[j];
@@ -688,6 +806,9 @@ public class Resytor {
             
             // Seta os valores da representação
             documento_j.setRepresentacao(representacao);
+            
+            // Seta a classificação do Documento
+            documento_j.setClasse(listaTermos.get(termo_tfidf_maior).getTermo());
             
         }
     }
@@ -745,11 +866,19 @@ public class Resytor {
         
         Random gerador = new Random();
         
+        int listDocSize = this.listaDocumentos.size();
+        
         for(int i=0; i<k; i++) {
             
-            int doc_id = gerador.nextInt(k+1);
+            int doc_id = gerador.nextInt(listDocSize);
             
-            this.listaDocumentos.get(doc_id).setCluster(true);
+            Documento documento_i = listaDocumentos.get(doc_id);
+            
+            if(documento_i.isCluster()) {
+                k--;
+            } else {
+                documento_i.setCluster(true);
+            }
             
         }
                 
