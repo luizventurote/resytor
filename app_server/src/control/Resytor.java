@@ -90,6 +90,13 @@ public class Resytor {
         msg = msg.replace(" que ", " ");
         msg = msg.replace(" pelos ", " ");
         msg = msg.replace(" foram ", " ");
+        msg = msg.replace(" com ", " ");
+        msg = msg.replace(" para ", " ");
+        msg = msg.replace(" voce ", " ");
+        msg = msg.replace(" como ", " ");
+        msg = msg.replace(" todos ", " ");
+        msg = msg.replace(" nos ", " ");
+        msg = msg.replace(" dar ", " ");
         
         return msg;
         
@@ -975,12 +982,18 @@ public class Resytor {
             // Termo
             Termo termo_i = this.listaTermos.get(i);
             
-            // Frequência total do termo
-            int FreqTotalTermo = (int) termo_i.getFrequenciaTotal();
+            // Descarta alguns termos pequenos
+            if(termo_i.getTermo().length() > 2) {
             
-            if(FreqTotalTermo >= freqMin) {
-                listaTermosSwap.add(termo_i);
+                // Frequência total do termo
+                int FreqTotalTermo = (int) termo_i.getFrequenciaTotal();
+
+                if(FreqTotalTermo >= freqMin) {
+                    listaTermosSwap.add(termo_i);
+                }
             }
+            
+            
         }
         
         int listaTermosSwapSize = listaTermosSwap.size();
