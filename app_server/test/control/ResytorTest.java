@@ -105,7 +105,7 @@ public class ResytorTest {
         textos[1] = "Inflacao e um aumento generalizado de precos e resulta em perda do poder de compra.";
         tamanhos[1] = 8;
         textos[2] = "Sistemas Tradicionais de Arquivos foram substituidos pelos Sistemas de Bancos de Dados!";
-        tamanhos[2] = 9;
+        tamanhos[2] = 7;
         
         // Variável para contar erros
         int error = 0, qtd_sw=0;
