@@ -36,68 +36,75 @@ public class Resytor {
      */
     public static String removeStopWords(String mensagem){
         
-        String msg = mensagem.toLowerCase();
+        ArrayList<String> stopWords = new ArrayList();
+        ArrayList<String> subString = new ArrayList();
+        String msg = mensagem;
+        
+         Scanner scn1 = new Scanner(msg);  
+         while(scn1.hasNext()){
+             subString.add(scn1.next());
+         }//while
+        
+         //Adicionando os StopWords a um array, para facilitar a comparação com o conteúdo do documento
+        stopWords.add("A"); stopWords.add("AS"); stopWords.add("O"); stopWords.add("OS");
+	stopWords.add("UM"); stopWords.add("UNS"); stopWords.add("UMA"); stopWords.add("UMAS");
+	stopWords.add("DA"); stopWords.add("DAS"); stopWords.add("DO"); stopWords.add("DOS");
+	stopWords.add("DE"); stopWords.add("PARA"); stopWords.add("PRA"); stopWords.add("COMO");
+	stopWords.add("QUANDO"); stopWords.add("QUEM"); stopWords.add("QUE"); stopWords.add("E");
+	stopWords.add("ESTE");	 stopWords.add("ESTES"); stopWords.add("ESTA"); stopWords.add("ESTAS");
+	stopWords.add("ISTO"); stopWords.add("AQUELA"); stopWords.add("AQUELAS"); stopWords.add("AQUELE");
+	stopWords.add("AQUELES"); stopWords.add("AQUILO"); stopWords.add("NAQUELA"); stopWords.add("NAQUELAS");
+	stopWords.add("NAQUELE"); stopWords.add("NAQUELES"); stopWords.add("NAQUILO"); stopWords.add("EM");
+	stopWords.add("NA"); stopWords.add("NO"); stopWords.add("NAS"); stopWords.add("NOS");
+	stopWords.add("POR"); stopWords.add("VEM"); stopWords.add("QUANDO"); stopWords.add("COMO");
+	stopWords.add("COM"); stopWords.add("SE"); stopWords.add("ESSE"); stopWords.add("VOU"); stopWords.add("do");
+        stopWords.add("é");stopWords.add("FORAM");stopWords.add("PELOS");
         
         //retirada dos StopPunctuations do conteudo do documento
-        msg = msg.replace(".", ""); msg = msg.replace(",", "");  
-        msg = msg.replace(";", ""); msg = msg.replace(":", "");
-        msg = msg.replace("?", ""); msg = msg.replace("!", ""); 
-        msg = msg.replace("...", ""); msg = msg.replace("-", ""); 
-        msg = msg.replace("(", ""); msg = msg.replace(")", ""); 
-        msg = msg.replace("_", ""); msg = msg.replace("*", "");
-        msg = msg.replace("[", ""); msg = msg.replace("]", ""); 
-        msg = msg.replace("/", ""); msg = msg.replace("'", "");
-        msg = msg.replace("}", ""); msg = msg.replace("}", ""); 
-        msg = msg.replace("+", ""); msg = msg.replace("&", "");
-        msg = msg.replace("º", ""); msg = msg.replace("ª", ""); 
-        msg = msg.replace("%", ""); msg = msg.replace("§", "");
-        msg = msg.replace("$", ""); msg = msg.replace("#", ""); 
-        msg = msg.replace("@", ""); msg = msg.replace("'", "");
-        msg = msg.replace("é", "e"); msg = msg.replace("ê", "e");
-        msg = msg.replace("á", "a"); msg = msg.replace("ã", "a");
-        msg = msg.replace("ó", "o"); msg = msg.replace("ô", "o");
-        msg = msg.replace(" a ", " "); msg = msg.replace("Ç", "C");
-        msg = msg.replace("\"", ""); msg = msg.replace("”", "");
+        msg = msg.replace(".", " "); msg = msg.replace(",", " ");  
+        msg = msg.replace(";", " "); msg = msg.replace(":", " ");
+        msg = msg.replace("?", " "); msg = msg.replace("!", " "); 
+        msg = msg.replace("...", " "); msg = msg.replace("-", " "); 
+        msg = msg.replace("(", " "); msg = msg.replace(")", " "); 
+        msg = msg.replace("_", " "); msg = msg.replace("*", " ");
+        msg = msg.replace("[", " "); msg = msg.replace("]", " "); 
+        msg = msg.replace("/", " "); msg = msg.replace("'", " ");
+        msg = msg.replace("}", " "); msg = msg.replace("}", " "); 
+        msg = msg.replace("+", " "); msg = msg.replace("&", " ");
+        msg = msg.replace("º", " "); msg = msg.replace("ª", " "); 
+        msg = msg.replace("%", " "); msg = msg.replace("§", " ");
+        msg = msg.replace("$", " "); msg = msg.replace("#", " "); 
+        msg = msg.replace("@", " "); msg = msg.replace("'", " ");
         
-        msg = msg.replace(" um ", " ");
-        msg = msg.replace(" em ", " ");
-        msg = msg.replace(" sua ", " ");
-        msg = msg.replace(" os ", " ");
-        msg = msg.replace(" na ", " ");
-        msg = msg.replace(" se ", " ");
-        msg = msg.replace(" no ", " ");
-        msg = msg.replace(" tem ", " ");
-        msg = msg.replace(" nao ", " ");
-        msg = msg.replace(" nos ", " ");
-        msg = msg.replace(" eu ", " ");
-        msg = msg.replace(" ja ", " ");
-        msg = msg.replace(" e ", " ");
-        msg = msg.replace(" do ", " ");
-        msg = msg.replace(" so ", " ");
-        msg = msg.replace(" o ", " ");
-        msg = msg.replace(" meu ", " ");
-        msg = msg.replace(" dos ", " ");
-        msg = msg.replace(" de ", " ");
-        msg = msg.replace(" nas ", " ");
-        msg = msg.replace(" viu ", " ");
-        msg = msg.replace(" uso ", " ");
-        msg = msg.replace(" seu ", " ");
-        msg = msg.replace(" of ", " ");
-        msg = msg.replace(" me ", " ");
-        msg = msg.replace(" bom ", " ");
-        msg = msg.replace(" pra ", " ");
-        msg = msg.replace(" q ", " ");
-        msg = msg.replace(" que ", " ");
-        msg = msg.replace(" pelos ", " ");
-        msg = msg.replace(" foram ", " ");
-        msg = msg.replace(" com ", " ");
-        msg = msg.replace(" para ", " ");
-        msg = msg.replace(" voce ", " ");
-        msg = msg.replace(" como ", " ");
-        msg = msg.replace(" todos ", " ");
-        msg = msg.replace(" nos ", " ");
-        msg = msg.replace(" dar ", " ");
+        subString.removeAll(subString);//zerando o array, para a insercao da String sem os "stopPunctuations"        
+        Scanner scn2 = new Scanner(msg);  
+        while(scn2.hasNext()){
+             subString.add(scn2.next());
+             
+         }//while
+               
+        for(String str:stopWords){//REMOVE OS STOPWORDS DO MEIO
+            for(String sub:subString){
+                if(str.equalsIgnoreCase(sub)){                        
+                        msg = msg.replaceAll("  ", " ");//substitui os caracters da esquerda pelos da direita, de toda a String                      
+                        msg = msg.replaceAll(" " + sub + " " , " ");
+                        msg = msg.trim();//remove espaços do inicio e fim da String
+                }//if
+            }//for
+        }//for
         
+        for(String str:stopWords){//REMOVE OS STOPWORDS DAS PONTAS
+            for(String sub:subString){
+                if(str.equalsIgnoreCase(subString.get(0)))
+                    msg = msg.replace(subString.get(0) , " ");
+                
+                if(str.equalsIgnoreCase(subString.get(subString.size()-1)))
+                    msg = msg.replace(" " + subString.get(subString.size()-1), " ");
+            }
+        }
+        msg = msg.trim();//remove espaços da ponta
+        
+        msg = msg.replace("  ", " ");                
         return msg;
         
     }
@@ -562,7 +569,7 @@ public class Resytor {
         this.calcularFrequenciaDosTermos();
         
         // Faz a redução de dimensionalidade na lista de termos
-        this.reduzirListaDeTermos(2);
+        this.reduzirListaDeTermos(4);
         
         showListaDeTermos();
         
